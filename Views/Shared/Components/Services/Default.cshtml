@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Doan.Models.TbProduct>
+﻿@model IEnumerable<Doan.Models.TbProduct>// sửa services
 
 @foreach (var item in Model)
 {
@@ -14,7 +14,6 @@
                 <div class="service-content">
                     <h3>@item.Title</h3>
                     <p>@item.Description</p>
-                    <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>

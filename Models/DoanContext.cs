@@ -45,9 +45,11 @@ public partial class DoanContext : DbContext
 
     public virtual DbSet<TbRole> TbRoles { get; set; }
 
+    public virtual DbSet<TbService> TbServices { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-QJVUPTPC\\MSSQLSERVER02\n;Database=Doan;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-QJVUPTPC\\MSSQLSERVER02;Database=Doan;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -354,6 +356,35 @@ public partial class DoanContext : DbContext
 
             entity.Property(e => e.Description).HasMaxLength(100);
             entity.Property(e => e.RoleName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TbService>(entity =>
+        {
+            entity.HasKey(e => e.ServiceId).HasName("PK__tb_Servi__C51BB00AF0B844C7");
+
+            entity.ToTable("tb_Service");
+
+            entity.Property(e => e.Alias).HasMaxLength(250);
+            entity.Property(e => e.CreatedBy).HasMaxLength(150);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Icon).HasMaxLength(500);
+            entity.Property(e => e.Image).HasMaxLength(500);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(150);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.SeoDescription).HasMaxLength(500);
+            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
+            entity.Property(e => e.SeoTitle).HasMaxLength(250);
+            entity.Property(e => e.ShortDescription).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(250);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.TbServices)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("FK__tb_Servic__Categ__06CD04F7");
+
+            entity.HasOne(d => d.Doctor).WithMany(p => p.TbServices)
+                .HasForeignKey(d => d.DoctorId)
+                .HasConstraintName("FK__tb_Servic__Docto__05D8E0BE");
         });
 
         OnModelCreatingPartial(modelBuilder);

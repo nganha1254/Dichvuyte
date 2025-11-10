@@ -54,4 +54,6 @@ public partial class TbDoctor
     public virtual ICollection<TbProductReview> TbProductReviews { get; set; } = new List<TbProductReview>();
 
     public virtual ICollection<TbProduct> TbProducts { get; set; } = new List<TbProduct>();
+
+    public virtual ICollection<TbService> TbServices { get; set; } = new List<TbService>();
 }

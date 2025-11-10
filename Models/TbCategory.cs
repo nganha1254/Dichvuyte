@@ -34,4 +34,6 @@ public partial class TbCategory
     public virtual ICollection<TbDoctor> TbDoctors { get; set; } = new List<TbDoctor>();
 
     public virtual ICollection<TbNews> TbNews { get; set; } = new List<TbNews>();
+
+    public virtual ICollection<TbService> TbServices { get; set; } = new List<TbService>();
 }
