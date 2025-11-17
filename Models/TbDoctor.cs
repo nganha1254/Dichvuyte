@@ -49,6 +49,8 @@ public partial class TbDoctor
 
     public virtual TbCategory? Category { get; set; }
 
+    public virtual ICollection<TbDepartment> TbDepartments { get; set; } = new List<TbDepartment>();
+
     public virtual ICollection<TbOrder> TbOrders { get; set; } = new List<TbOrder>();
 
     public virtual ICollection<TbProductReview> TbProductReviews { get; set; } = new List<TbProductReview>();

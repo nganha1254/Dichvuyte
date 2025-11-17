@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Doan.Models.TbDepartment>
+
+@foreach (var item in Model)
+{
+
+    <div class="featured-department" data-aos="fade-up" data-aos-delay="200">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-1">
+                <div class="department-content">
+                    <div class="department-category">KHOA CẤP CỨU</div>
+                    <h2 class="department-title">Dịch vụ cấp cứu 24/7</h2>
+                    <p class="department-description">chúng tôi cung cấp dịch vụ cấp cứu 24/7 với đội ngũ bác sĩ và y tế với chuyên môn cao, luôn sẵn sàng hỗ trợ bạn trong mọi tình huống khẩn cấp</p>
+                    <div class="department-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Dịch vụ cáp cứu 24/7</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Hỗ trợ dịch vụ Sống nâng cao</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Chuyên gia chăm sóc chấn thương</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-link">Tìm hiểu thêm <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-2">
+                <div class="department-visual">
+                    <div class="image-wrapper">
+                        <img src="@item.Image" alt="Emergency Department" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

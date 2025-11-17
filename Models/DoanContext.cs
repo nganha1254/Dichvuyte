@@ -15,6 +15,10 @@ public partial class DoanContext : DbContext
     {
     }
 
+    public virtual DbSet<TbAbout> TbAbouts { get; set; }
+
+    public virtual DbSet<TbAboutDetail> TbAboutDetails { get; set; }
+
     public virtual DbSet<TbAccount> TbAccounts { get; set; }
 
     public virtual DbSet<TbBlog> TbBlogs { get; set; }
@@ -24,6 +28,8 @@ public partial class DoanContext : DbContext
     public virtual DbSet<TbCategory> TbCategories { get; set; }
 
     public virtual DbSet<TbContact> TbContacts { get; set; }
+
+    public virtual DbSet<TbDepartment> TbDepartments { get; set; }
 
     public virtual DbSet<TbDoctor> TbDoctors { get; set; }
 
@@ -53,9 +59,57 @@ public partial class DoanContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TbAbout>(entity =>
+        {
+            entity.HasKey(e => e.AboutId).HasName("PK__tb_About__717FC93C382F79F9");
+
+            entity.ToTable("tb_About");
+
+            entity.Property(e => e.Alias).HasMaxLength(250);
+            entity.Property(e => e.CreatedBy).HasMaxLength(150);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Image).HasMaxLength(500);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(150);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.SeoDescription).HasMaxLength(500);
+            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
+            entity.Property(e => e.SeoTitle).HasMaxLength(250);
+            entity.Property(e => e.ShortDescription).HasMaxLength(1000);
+            entity.Property(e => e.Title).HasMaxLength(250);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.TbAbouts)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("FK_tb_About_tb_Category");
+        });
+
+        modelBuilder.Entity<TbAboutDetail>(entity =>
+        {
+            entity.HasKey(e => e.AboutDetailsId).HasName("PK__tb_About__4215465893D3A7D6");
+
+            entity.ToTable("tb_AboutDetails");
+
+            entity.Property(e => e.Address).HasMaxLength(500);
+            entity.Property(e => e.ContactFormText).HasMaxLength(1000);
+            entity.Property(e => e.CreatedBy).HasMaxLength(150);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.MapLink).HasMaxLength(500);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(150);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+            entity.Property(e => e.SocialLinks).HasMaxLength(1000);
+
+            entity.HasOne(d => d.About).WithMany(p => p.TbAboutDetails)
+                .HasForeignKey(d => d.AboutId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__tb_AboutD__About__1EA48E88");
+        });
+
         modelBuilder.Entity<TbAccount>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__tb_Accou__349DA5A6F85052CA");
+            entity.HasKey(e => e.AccountId).HasName("PK__tb_Accou__349DA5A64CAEF2A4");
 
             entity.ToTable("tb_Account");
 
@@ -74,7 +128,7 @@ public partial class DoanContext : DbContext
 
         modelBuilder.Entity<TbBlog>(entity =>
         {
-            entity.HasKey(e => e.BlogId).HasName("PK__tb_Blog__54379E302B7D62FA");
+            entity.HasKey(e => e.BlogId).HasName("PK__tb_Blog__54379E3089A36091");
 
             entity.ToTable("tb_Blog");
 
@@ -93,16 +147,16 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.TbBlogs)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__tb_Blog__Account__6383C8BA");
+                .HasConstraintName("FK__tb_Blog__Account__72C60C4A");
 
             entity.HasOne(d => d.Category).WithMany(p => p.TbBlogs)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__tb_Blog__Categor__628FA481");
+                .HasConstraintName("FK__tb_Blog__Categor__71D1E811");
         });
 
         modelBuilder.Entity<TbBookingStatus>(entity =>
         {
-            entity.HasKey(e => e.BookingStatusId).HasName("PK__tb_Booki__54F9C05D7FAB8D9C");
+            entity.HasKey(e => e.BookingStatusId).HasName("PK__tb_Booki__54F9C05DC1446357");
 
             entity.ToTable("tb_BookingStatus");
 
@@ -112,7 +166,7 @@ public partial class DoanContext : DbContext
 
         modelBuilder.Entity<TbCategory>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__tb_Categ__19093A0BEC76C356");
+            entity.HasKey(e => e.CategoryId).HasName("PK__tb_Categ__19093A0BBCF3623E");
 
             entity.ToTable("tb_Category");
 
@@ -130,7 +184,7 @@ public partial class DoanContext : DbContext
 
         modelBuilder.Entity<TbContact>(entity =>
         {
-            entity.HasKey(e => e.ContactId).HasName("PK__tb_Conta__5C66259B57F9486F");
+            entity.HasKey(e => e.ContactId).HasName("PK__tb_Conta__5C66259B9E8B8C3E");
 
             entity.ToTable("tb_Contact");
 
@@ -143,9 +197,37 @@ public partial class DoanContext : DbContext
             entity.Property(e => e.Phone).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<TbDepartment>(entity =>
+        {
+            entity.HasKey(e => e.DepartmentId).HasName("PK__tb_Depar__B2079BED7121D3D6");
+
+            entity.ToTable("tb_Departments");
+
+            entity.Property(e => e.Alias).HasMaxLength(150);
+            entity.Property(e => e.CreatedBy).HasMaxLength(150);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.DepartmentName).HasMaxLength(150);
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Image).HasMaxLength(500);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(150);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.SeoDescription).HasMaxLength(500);
+            entity.Property(e => e.SeoKeywords).HasMaxLength(250);
+            entity.Property(e => e.SeoTitle).HasMaxLength(250);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.TbDepartments)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("FK__tb_Depart__Categ__17036CC0");
+
+            entity.HasOne(d => d.Doctor).WithMany(p => p.TbDepartments)
+                .HasForeignKey(d => d.DoctorId)
+                .HasConstraintName("FK__tb_Depart__Docto__17F790F9");
+        });
+
         modelBuilder.Entity<TbDoctor>(entity =>
         {
-            entity.HasKey(e => e.DoctorId).HasName("PK__tb_Docto__2DC00EBF85EDF0C1");
+            entity.HasKey(e => e.DoctorId).HasName("PK__tb_Docto__2DC00EBFA8AAE9A3");
 
             entity.ToTable("tb_Doctor");
 
@@ -166,16 +248,16 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.TbDoctors)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__tb_Doctor__Accou__412EB0B6");
+                .HasConstraintName("FK__tb_Doctor__Accou__48CFD27E");
 
             entity.HasOne(d => d.Category).WithMany(p => p.TbDoctors)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__tb_Doctor__Categ__403A8C7D");
+                .HasConstraintName("FK__tb_Doctor__Categ__47DBAE45");
         });
 
         modelBuilder.Entity<TbMenu>(entity =>
         {
-            entity.HasKey(e => e.MenuId).HasName("PK__tb_Menu__C99ED2305F13F963");
+            entity.HasKey(e => e.MenuId).HasName("PK__tb_Menu__C99ED23028D7B0CB");
 
             entity.ToTable("tb_Menu");
 
@@ -191,7 +273,7 @@ public partial class DoanContext : DbContext
 
         modelBuilder.Entity<TbNews>(entity =>
         {
-            entity.HasKey(e => e.NewsId).HasName("PK__tb_News__954EBDF3BC618FF0");
+            entity.HasKey(e => e.NewsId).HasName("PK__tb_News__954EBDF3C0522E83");
 
             entity.ToTable("tb_News");
 
@@ -210,12 +292,12 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Category).WithMany(p => p.TbNews)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__tb_News__Categor__6754599E");
+                .HasConstraintName("FK__tb_News__Categor__76969D2E");
         });
 
         modelBuilder.Entity<TbOrder>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__tb_Order__C3905BCF568DC28D");
+            entity.HasKey(e => e.OrderId).HasName("PK__tb_Order__C3905BCF2D815D03");
 
             entity.ToTable("tb_Order");
 
@@ -231,20 +313,20 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.BookingStatus).WithMany(p => p.TbOrders)
                 .HasForeignKey(d => d.BookingStatusId)
-                .HasConstraintName("FK__tb_Order__Bookin__5535A963");
+                .HasConstraintName("FK__tb_Order__Bookin__6477ECF3");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.TbOrders)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__tb_Order__Doctor__5441852A");
+                .HasConstraintName("FK__tb_Order__Doctor__6383C8BA");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.TbOrders)
                 .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__tb_Order__Patien__534D60F1");
+                .HasConstraintName("FK__tb_Order__Patien__628FA481");
         });
 
         modelBuilder.Entity<TbOrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__tb_Order__D3B9D36CC2B4410E");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__tb_Order__D3B9D36C0E455A58");
 
             entity.ToTable("tb_OrderDetail");
 
@@ -256,16 +338,16 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.TbOrderDetails)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK__tb_OrderD__Order__59063A47");
+                .HasConstraintName("FK__tb_OrderD__Order__68487DD7");
 
             entity.HasOne(d => d.Product).WithMany(p => p.TbOrderDetails)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__tb_OrderD__Produ__59FA5E80");
+                .HasConstraintName("FK__tb_OrderD__Produ__693CA210");
         });
 
         modelBuilder.Entity<TbPatient>(entity =>
         {
-            entity.HasKey(e => e.PatientId).HasName("PK__tb_Patie__970EC36627571CE8");
+            entity.HasKey(e => e.PatientId).HasName("PK__tb_Patie__970EC3663F45D077");
 
             entity.ToTable("tb_Patient");
 
@@ -280,12 +362,12 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.TbPatients)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__tb_Patien__Accou__4E88ABD4");
+                .HasConstraintName("FK__tb_Patien__Accou__5DCAEF64");
         });
 
         modelBuilder.Entity<TbProduct>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__tb_Produ__B40CC6CD4EDC9430");
+            entity.HasKey(e => e.ProductId).HasName("PK__tb_Produ__B40CC6CDDF59F4E7");
 
             entity.ToTable("tb_Product");
 
@@ -302,16 +384,16 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.TbProducts)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__tb_Produc__Docto__4AB81AF0");
+                .HasConstraintName("FK__tb_Produc__Docto__59FA5E80");
 
             entity.HasOne(d => d.ProductCategory).WithMany(p => p.TbProducts)
                 .HasForeignKey(d => d.ProductCategoryId)
-                .HasConstraintName("FK__tb_Produc__Produ__49C3F6B7");
+                .HasConstraintName("FK__tb_Produc__Produ__59063A47");
         });
 
         modelBuilder.Entity<TbProductCategory>(entity =>
         {
-            entity.HasKey(e => e.ProductCategoryId).HasName("PK__tb_Produ__3224ECCEFA13F1EE");
+            entity.HasKey(e => e.ProductCategoryId).HasName("PK__tb_Produ__3224ECCE7FE7EBB5");
 
             entity.ToTable("tb_ProductCategory");
 
@@ -328,7 +410,7 @@ public partial class DoanContext : DbContext
 
         modelBuilder.Entity<TbProductReview>(entity =>
         {
-            entity.HasKey(e => e.ProductReviewId).HasName("PK__tb_Produ__396318805F2CE843");
+            entity.HasKey(e => e.ProductReviewId).HasName("PK__tb_Produ__39631880E8C4687E");
 
             entity.ToTable("tb_ProductReview");
 
@@ -341,16 +423,16 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.TbProductReviews)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__tb_Produc__Docto__5EBF139D");
+                .HasConstraintName("FK__tb_Produc__Docto__6E01572D");
 
             entity.HasOne(d => d.Product).WithMany(p => p.TbProductReviews)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__tb_Produc__Produ__5DCAEF64");
+                .HasConstraintName("FK__tb_Produc__Produ__6D0D32F4");
         });
 
         modelBuilder.Entity<TbRole>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__tb_Role__8AFACE1AA9F00AC6");
+            entity.HasKey(e => e.RoleId).HasName("PK__tb_Role__8AFACE1A45C7D032");
 
             entity.ToTable("tb_Role");
 
@@ -360,7 +442,7 @@ public partial class DoanContext : DbContext
 
         modelBuilder.Entity<TbService>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__tb_Servi__C51BB00AF0B844C7");
+            entity.HasKey(e => e.ServiceId).HasName("PK__tb_Servi__C51BB00A1E3AC166");
 
             entity.ToTable("tb_Service");
 
@@ -380,11 +462,11 @@ public partial class DoanContext : DbContext
 
             entity.HasOne(d => d.Category).WithMany(p => p.TbServices)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__tb_Servic__Categ__06CD04F7");
+                .HasConstraintName("FK__tb_Servic__Categ__5070F446");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.TbServices)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__tb_Servic__Docto__05D8E0BE");
+                .HasConstraintName("FK__tb_Servic__Docto__4F7CD00D");
         });
 
         OnModelCreatingPartial(modelBuilder);

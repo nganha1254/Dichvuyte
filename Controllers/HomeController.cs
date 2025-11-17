@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Doan.Models;
 
@@ -17,6 +17,22 @@ public class HomeController : Controller
     {
         return View();
     }
+    [Route("lien-he")]
+    public IActionResult Contact()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [Route("lien-he")]
+    public IActionResult Contact(string name, string email, string subject, string message)
+    {
+        TempData["Success"] = "Gửi liên hệ thành công!";
+        return RedirectToAction("Contact");
+    }
+
+
+
 
     public IActionResult Privacy()
     {

@@ -29,7 +29,11 @@ public partial class TbCategory
 
     public string? ModifiedBy { get; set; }
 
+    public virtual ICollection<TbAbout> TbAbouts { get; set; } = new List<TbAbout>();
+
     public virtual ICollection<TbBlog> TbBlogs { get; set; } = new List<TbBlog>();
+
+    public virtual ICollection<TbDepartment> TbDepartments { get; set; } = new List<TbDepartment>();
 
     public virtual ICollection<TbDoctor> TbDoctors { get; set; } = new List<TbDoctor>();
 

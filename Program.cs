@@ -26,6 +26,10 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Home}/{id?}"
+    );
 
 app.MapStaticAssets();
 

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Doan.Models.TbAbout>
+
+@{
+    var item = Model.FirstOrDefault();
+}
+
+@if (item != null)
+{
+    // 🔗 Khai báo sUrl bên trong cùng khối với phần HTML
+    var sUrl = $"/about/{item.Alias}-{item.AboutId}.html";
+
+    <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
+        <div class="image-grid">
+            <!-- Hình ảnh chính -->
+            <div class="primary-image position-relative">
+                <!-- Ảnh có thể click vào để đến trang chi tiết -->
+                <a href="@sUrl">
+                    <img src="@item.Image" alt="@item.Title" class="img-fluid rounded shadow-sm">
+                </a>
+
+                <div class="certification-badge">
+                    <i class="bi bi-award"></i>
+                    <span>JCI Accredited</span>
+                </div>
+
+                <!-- Nút xem chi tiết -->
+                <a href="@sUrl" class="btn btn-outline-primary position-absolute bottom-0 start-0 m-3">
+                    Xem chi tiết
+                </a>
+            </div>
+
+            <!-- Hình ảnh phụ -->
+            <div class="secondary-images mt-3 d-flex gap-2">
+                <div class="small-image flex-fill">
+                    <img src="~/assets/img/200x100/1-5-200x100.jpg" alt="Doctor consultation" class="img-fluid rounded">
+                </div>
+                <div class="small-image flex-fill">
+                    <img src="~/assets/img/200x120/1-11-200x120.jpg" alt="Medical procedure" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+}
