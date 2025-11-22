@@ -12,7 +12,7 @@ namespace Doan.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var items = _context.TbDoctors.Include(m => m.Category)
+            var items = _context.TbDoctor.Include(m => m.Category)
                 .Where(m => (bool)m.IsActive).Where(m => m.IsNew);
             return await Task.FromResult<IViewComponentResult>
                 (View(items.OrderByDescending(m => m.CategoryId).ToList()));
