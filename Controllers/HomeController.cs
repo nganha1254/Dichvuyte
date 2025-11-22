@@ -23,6 +23,11 @@ public class HomeController : Controller
     {
         return View();
     }
+    [Route("dich-vu")]
+    public IActionResult Services()
+    {
+        return View();
+    }
 
     [HttpPost]
     [Route("lien-he")]
@@ -31,7 +36,6 @@ public class HomeController : Controller
         TempData["Success"] = "Gửi liên hệ thành công!";
         return RedirectToAction("Contact");
     }
-
 
 
 
