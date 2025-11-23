@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "_Layout";
+
+    string title = "Đặt lịch khám";
+
+    if (ViewBag.Type == "test") title = "Đặt lịch xét nghiệm";
+    if (ViewBag.Type == "vaccine") title = "Đặt lịch tiêm chủng";
+}
+
+<section class="section">
+    <div class="container">
+        <h2>@title</h2>
+
+        <form asp-action="Submit" method="post">
+            <input type="hidden" name="type" value="@ViewBag.Type" />
+
+            <div class="mb-3">
+                <label>Họ và tên</label>
+                <input class="form-control" name="HoTen" required />
+            </div>
+
+            <div class="mb-3">
+                <label>Số điện thoại</label>
+                <input class="form-control" name="DienThoai" required />
+            </div>
+
+            <div class="mb-3">
+                <label>Ngày hẹn</label>
+                <input type="date" class="form-control" name="Ngay" required />
+            </div>
+
+            <div class="mb-3">
+                <label>Ghi chú</label>
+                <textarea class="form-control" name="GhiChu"></textarea>
+            </div>
+
+            <button class="btn btn-primary">Xác nhận đặt lịch</button>
+        </form>
+
+        @if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success mt-3">@TempData["msg"]</div>
+        }
+    </div>
+</section>
