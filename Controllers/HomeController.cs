@@ -23,13 +23,6 @@ public class HomeController : Controller
         return View();
     }
 
-    [HttpPost]
-    [Route("lien-he")]
-    public IActionResult Contact(string name, string email, string subject, string message)
-    {
-        TempData["Success"] = "Gửi liên hệ thành công!";
-        return RedirectToAction("Contact");
-    }
 
 
 

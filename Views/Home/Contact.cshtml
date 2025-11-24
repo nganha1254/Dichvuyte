@@ -83,31 +83,30 @@
                         <div class="alert alert-success">@TempData["Success"]</div>
                     }
 
-                    <form asp-action="Contact" method="post" class="php-email-form">
-
+                    <form id="contactForm" asp-action="Create" method="post" class="php-email-form">
                         <div class="row gy-3">
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                <input type="text" id="c_name" name="name" class="form-control" placeholder="Your Name" required>
                             </div>
 
                             <div class="col-md-6">
-                                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                <input type="email" id="c_email" name="email" class="form-control" placeholder="Your Email" required>
                             </div>
 
                             <div class="col-md-12">
-                                <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                                <input type="text" id="c_phone" name="phone" class="form-control" placeholder="Phone" required>
                             </div>
 
                             <div class="col-md-12">
-                                <textarea name="message" class="form-control" rows="10" placeholder="Message" required></textarea>
+                                <textarea id="c_message" name="message" class="form-control" rows="10" placeholder="Message" required></textarea>
                             </div>
 
                             <div class="col-md-12 text-center">
-                                <button type="submit">Send Message</button>
+                                <button type="submit" id="c_submit">Send Message</button>
                             </div>
                         </div>
-
                     </form>
+
 
                 </div>
             </div>
@@ -127,3 +126,37 @@
     <!-- End Contact Section -->
 
 </main>
+@section Scripts {
+    <script>
+               $(document).ready(function() {
+            $('#c_submit').click(function(event) {
+                event.preventDefault();  // Ngừng hành động mặc định (gửi form)
+
+                var _name = $("#c_name").val();
+                var _phone = $("#c_phone").val();
+                var _email = $("#c_email").val();
+                var _message = $("#c_message").val();
+
+                $.ajax({
+                    url: "/Contact/Create",
+                    type: "POST",
+                    data: { name: _name, phone: _phone, email: _email, message: _message },
+                    success: function(result) {
+                        if (result.status) {
+                            $("#c_name").val("");
+                            $("#c_phone").val("");
+                            $("#c_email").val("");
+                            $("#c_message").val("");
+                            toastr.success('Gửi thành công.');
+                        } else {
+                            toastr.error('Gửi thất bại.');
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Có lỗi xảy ra khi gửi.');
+                    }
+                });
+            });
+        });
+    </script>
+}

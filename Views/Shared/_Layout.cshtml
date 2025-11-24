@@ -27,6 +27,7 @@
 
     <!-- Main CSS File -->
     <link href="~/assets/css/main.css" rel="stylesheet">
+    <link href="~/assets/toastr//toastr.css" rel="stylesheet" />
 
     <!-- =======================================================
     * Template Name: MediNest
@@ -53,6 +54,8 @@
             <a class="btn-getstarted" href="apointment.html">Apointment</a>
 
         </div>
+        @RenderSection("Scripts", required: false)
+
     </header>
 @RenderBody()
 
@@ -156,6 +159,9 @@
 
     <!-- Main JS File -->
     <script src="~/assets/js/main.js"></script>
+    <script src="~/assets/toastr/toastr.min.js"></script>
+
+
 
 </body>
 
