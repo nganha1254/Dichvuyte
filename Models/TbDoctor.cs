@@ -25,7 +25,7 @@ public partial class TbDoctor
 
     public string? Qualification { get; set; }
 
-    public string? ExperienceYears { get; set; }
+    public int? ExperienceYears { get; set; }
 
     public string? Description { get; set; }
 

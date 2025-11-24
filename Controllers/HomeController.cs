@@ -18,11 +18,16 @@ public class HomeController : Controller
         return View();
     }
     [Route("lien-he")]
+    [Route("bac-sy")]
     public IActionResult Contact()
     {
         return View();
     }
-
+    [Route("dich-vu")]
+    public IActionResult Services()
+    {
+        return View();
+    }
 
 
 
