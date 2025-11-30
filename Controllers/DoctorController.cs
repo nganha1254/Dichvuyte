@@ -18,18 +18,18 @@ namespace Doan.Controllers
         [Route("/Doctor/{alias}-{id}.html")]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.TbDoctor == null)
+            if (id == null || _context.TbDoctors == null)
             {
                 return NotFound();
             }
-            var Doctor = await _context.TbDoctor
+            var Doctor = await _context.TbDoctors
                 .Include(m => m.Category)
                 .FirstOrDefaultAsync(m => m.DoctorId == id);
             if (Doctor == null)
             {
                 return NotFound();
             }
-            ViewBag.doctorDetails = _context.TbDoctor.Where(i => i.DoctorId == id).ToList();
+            ViewBag.doctorDetails = _context.TbDoctors.Where(i => i.DoctorId == id).ToList();
             return View(Doctor);
         }
     }

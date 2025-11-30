@@ -17,16 +17,21 @@ public class HomeController : Controller
     {
         return View();
     }
-    [Route("lien-he")]
-    [Route("bac-sy")]
-    public IActionResult Contact()
+
+    [Route("Doctor")]
+    public IActionResult Doctors()
     {
-        return View();
-    }
+        return View("~/Views/Doctor/Index.cshtml");
+    }    
     [Route("dich-vu")]
     public IActionResult Services()
     {
         return View();
+    }
+    [Route("Contact")]
+    public IActionResult Contact()
+    {
+        return View("~/Views/Contact/Index.cshtml");
     }
 
 

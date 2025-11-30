@@ -1,0 +1,249 @@
+﻿@{
+    ViewData["Title"] = "Appointment";
+}
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="heading">
+            <div class="container">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="heading-title">ĐẶT LỊCH HẸN</h1>
+                        <p class="mb-0">
+                            Đặt lịch khám chỉ với vài bước đơn giản. Đội ngũ chuyên gia y tế của chúng tôi luôn sẵn sàng cung cấp cho bạn dịch vụ chăm sóc sức khỏe tốt nhất, phù hợp với nhu cầu của bạn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="breadcrumbs">
+            <div class="container">
+                <ol>
+                    <li><a href="index.html">Trang chủ </a></li>
+                    <li class="current">Đặt lịch hẹn</li>
+                </ol>
+            </div>
+        </nav>
+    </div><!-- End Page Title -->
+    <!-- Appointmnet Section -->
+    <section id="appointmnet" class="appointmnet section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row gy-4">
+
+                <!-- Appointment Info -->
+                <div class="col-lg-6">
+                    <div class="appointment-info">
+                        <h3>Lịch trình linh hoạt</h3>
+                        <p class="mb-4">Chọn khung giờ khám phù hợp với lịch làm việc bận rộn của bạn.</p>
+
+                        <div class="info-items">
+                            <div class="info-item d-flex align-items-center mb-3" data-aos="fade-up" data-aos-delay="200">
+                                <div class="icon-wrapper me-3">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div>
+                                    <h5>Phản hồi nhanh chóng</h5>
+                                    <p class="mb-0">Nhận xác nhận lịch hẹn trong vòng 15 phút sau khi gửi yêu cầu.</p>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                            <div class="info-item d-flex align-items-center mb-3" data-aos="fade-up" data-aos-delay="250">
+                                <div class="icon-wrapper me-3">
+                                    <i class="bi bi-stopwatch"></i>
+                                </div>
+                                <div>
+                                    <h5>Chăm sóc y tế chuyên nghiệp</h5>
+                                    <p class="mb-0">Được thăm khám bởi các bác sĩ và chuyên gia có chứng chỉ, giàu kinh nghiệm.</p>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                            <div class="info-item d-flex align-items-center mb-3" data-aos="fade-up" data-aos-delay="300">
+                                <div class="icon-wrapper me-3">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <div>
+                                    <h5>Chăm sóc y tế chuyên môn cao</h5>
+                                    <p class="mb-0">Đội ngũ bác sĩ và chuyên gia được chứng nhận luôn sẵn sàng phục vụ bạn</p>
+                                </div>
+                            </div><!-- End Info Item -->
+                        </div>
+
+                        <div class="emergency-contact mt-4" data-aos="fade-up" data-aos-delay="350">
+                            <div class="emergency-card p-3">
+                                <h6 class="mb-2"><i class="bi bi-telephone-fill me-2"></i>Đường dây nóng khẩn cấp</h6>
+                                <p class="mb-0">Gọi <strong>+1 (555) 911-4567</strong> để được hỗ trợ y tế khẩn cấp</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- End Appointment Info -->
+                <!-- Appointment Form -->
+                <div class="col-lg-6">
+                    <div class="appointment-form-wrapper" data-aos="fade-up" data-aos-delay="200">
+                        <form action="forms/appointment.php" method="post" class="appointment-form php-email-form">
+                            <div class="row gy-3">
+
+                                <div class="col-md-6">
+                                    <input type="text" id="c_name" class="form-control" placeholder="Your Full Name" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="email" id="c_email" class="form-control" placeholder="Your Email" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="tel" id="c_phone" class="form-control" placeholder="Your Phone Number" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                   <select id="categoryId" id="c_categoryName" class="form-select" required="">
+    <option value="">Chọn khoa</option>
+    <option value="1">Tim mạch</option>
+    <option value="2">Thần kinh</option>
+    <option value="3">Tiêu hóa</option>
+    <option value="4">Nhi khoa</option>
+</select>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="date" id="c_date" class="form-control" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <select id="c_doctorName" class="form-select">
+                                        <option value="">Chọn bác sĩ</option>
+                                        <option value="1">Nguyễn Văn An</option>
+                                        <option value="2">Lê Thị Bình</option>
+                                        <option value="3">Phạm Văn Kiên</option>
+                                        <option value="4">Trần Thị Duyên</option>
+                                        <option value="5">Hoàng Văn Hải</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-12">
+                                    <textarea class="form-control" id="c_message" rows="5" placeholder="Vui lòng mô tả triệu chứng hoặc lý do bạn đên khám"></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="loading">Đang xử lý...</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Yêu cầu đặt lịch của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!</div>
+
+                                    <button type="submit" class="btn btn-appointment w-100">
+                                        <i class="bi bi-calendar-plus me-2"></i>Đặt lịch khám
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- End Appointment Form -->
+
+            </div>
+
+            <!-- Process Steps -->
+            <div class="process-steps mt-5" data-aos="fade-up" data-aos-delay="300">
+                <div class="row text-center gy-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <h5>Nhập thông tin</h5>
+                            <p>Vui lòng cung cấp thông tin cá nhân và chọn khoa mà bạn muốn đăng ký khám</p>
+                        </div>
+                    </div><!-- End Step -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+                            <h5>Chọn Ngày</h5>
+                            <p>Chọn ngày và khung giờ bạn ưu thích từ các lựa chọn có sẵn</p>
+                        </div>
+                    </div><!-- End Step -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <h5>Xác Nhận</h5>
+                            <p>Nhận xác nhận ngay lập tức và thông tin cuộc hẹn qua email hoặc tin nhắn SMS</p>
+                        </div>
+                    </div><!-- End Step -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <h5>Nhận Điều Trị</h5>
+                            <p>Đến phòng khám của chúng tôi vào thời gian đã hẹn và nhận dịch vụ chăm sóc sức khỏe chất lượng</p>
+                        </div>
+                    </div><!-- End Step -->
+
+                </div>
+            </div><!-- End Process Steps -->
+
+        </div>
+
+    </section><!-- /Appointmnet Section -->
+
+</main>
+@section Scripts {
+    <script>
+        $(function () {
+
+                   $(".appointment-form").on("submit", function (e) {
+            e.preventDefault();
+
+            let _name = $("#c_name").val();
+            let _email = $("#c_email").val();
+            let _phone = $("#c_phone").val();
+            let _date = $("#c_date").val();
+            let _department = $("#categoryId").val(); // sửa đúng ID
+            let _doctor = $("#c_doctorName").val();   // sửa đúng ID
+            let _message = $("#c_message").val();
+
+            $.ajax({
+                url: "/Appointment/Create",
+                type: "POST",
+                data: {
+                    name: _name,
+                    phone: _phone,
+                    email: _email,
+                    message: _message,
+                    CreatedDate: _date,       // GỬI ĐÚNG TÊN PARAM
+                    CategoryName: _department,
+                    DoctorName: _doctor
+                },
+                success: function (result) {
+                    if (result.status) {
+                        toastr.success("Đặt lịch thành công!");
+                        $(".appointment-form")[0].reset();
+                    } else {
+                        toastr.error("Đặt lịch thất bại!");
+                    }
+                },
+                error: function () {
+                    toastr.error("Lỗi kết nối server!");
+                }
+            });
+        });
+
+        });
+    </script>
+}
+

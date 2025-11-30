@@ -15,7 +15,7 @@ namespace Doan.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(string name, string phone, string email, string message)
+        public async Task<IActionResult> Create(string name, string phone, string email, string message)
         {
             try
             {
@@ -25,8 +25,10 @@ namespace Doan.Controllers
                 contact.Email = email;
                 contact.Message = message;
                 contact.CreatedDate = DateTime.Now;
+
                 _context.Add(contact);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+
                 return Json(new { status = true });
             }
             catch
