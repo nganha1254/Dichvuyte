@@ -376,11 +376,11 @@ VALUES
 (N'Da liễu', N'da-lieu', N'Chuyên khoa da liễu', 5, GETDATE(), N'admin1');
 INSERT INTO tb_Doctor (FullName, Gender, DateOfBirth, Phone, Email, Address, CategoryId, Position, Qualification, ExperienceYears, Description, Image, AccountId, CreatedDate, CreatedBy)
 VALUES
-(N'Nguyễn Văn A', N'Nam', '1980-05-12', N'0911223344', N'dr.nguyenvana@example.com', N'123 Đường A, Hà Nội', 1, N'Bác sĩ trưởng khoa', N'Thuộc tim mạch', 15, N'Kinh nghiệm khám và điều trị bệnh tim', N'dr1.jpg', 1, GETDATE(), N'admin1'),
-(N'Lê Thị B', N'Nữ', '1985-08-20', N'0922334455', N'dr.lethib@example.com', N'234 Đường B, Hà Nội', 2, N'Bác sĩ chuyên khoa', N'Thần kinh', 12, N'Chuyên điều trị các bệnh về thần kinh', N'dr2.jpg', 2, GETDATE(), N'admin1'),
-(N'Phạm Văn C', N'Nam', '1978-02-15', N'0933445566', N'dr.phamvanc@example.com', N'345 Đường C, Hà Nội', 3, N'Bác sĩ chuyên khoa', N'Tiêu hóa', 18, N'Khám và điều trị bệnh tiêu hóa', N'dr3.jpg', 3, GETDATE(), N'admin1'),
-(N'Trần Thị D', N'Nữ', '1982-11-30', N'0944556677', N'dr.tranthid@example.com', N'456 Đường D, Hà Nội', 4, N'Bác sĩ nhi khoa', N'Nhi khoa', 14, N'Chăm sóc sức khỏe trẻ em', N'dr4.jpg', 4, GETDATE(), N'admin1'),
-(N'Hoàng Văn E', N'Nam', '1975-06-18', N'0955667788', N'dr.hoangvane@example.com', N'567 Đường E, Hà Nội', 5, N'Bác sĩ da liễu', N'Da liễu', 20, N'Chuyên điều trị các bệnh da liễu', N'dr5.jpg', 5, GETDATE(), N'admin1');
+(N'Nguyễn Văn An', N'Nam', '1980-05-12', N'0911223344', N'dr.nguyenvana@example.com', N'123 Đường A, Hà Nội', 1, N'Bác sĩ trưởng khoa', N'Thuộc tim mạch', 15, N'Kinh nghiệm khám và điều trị bệnh tim', N'/assets/img/200x100/1-1-200x100.jpg', 1, GETDATE(), N'admin1'),
+(N'Lê Thị Bình', N'Nữ', '1985-08-20', N'0922334455', N'dr.lethib@example.com', N'234 Đường B, Hà Nội', 2, N'Bác sĩ chuyên khoa', N'Thần kinh', 12, N'Chuyên điều trị các bệnh về thần kinh', N'/assets/img/200x100/1-2-200x100.jpg', 2, GETDATE(), N'admin1'),
+(N'Phạm Văn Kiên', N'Nam', '1978-02-15', N'0933445566', N'dr.phamvanc@example.com', N'345 Đường C, Hà Nội', 3, N'Bác sĩ chuyên khoa', N'Tiêu hóa', 18, N'Khám và điều trị bệnh tiêu hóa', N'/assets/img/200x100/1-3-200x100.jpg', 3, GETDATE(), N'admin1'),
+(N'Trần Thị Duyên', N'Nữ', '1982-11-30', N'0944556677', N'dr.tranthid@example.com', N'456 Đường D, Hà Nội', 4, N'Bác sĩ nhi khoa', N'Nhi khoa', 14, N'Chăm sóc sức khỏe trẻ em', N'/assets/img/200x100/1-4-200x100.jpg', 4, GETDATE(), N'admin1'),
+(N'Hoàng Văn Hải', N'Nam', '1975-06-18', N'0955667788', N'dr.hoangvane@example.com', N'567 Đường E, Hà Nội', 5, N'Bác sĩ da liễu', N'Da liễu', 20, N'Chuyên điều trị các bệnh da liễu', N'/assets/img/200x100/1-5-200x100.jpg', 5, GETDATE(), N'admin1');
 INSERT INTO tb_ProductCategory (Title, Alias, Description, Icon, Position, CreatedDate, CreatedBy)
 VALUES
 (N'Khám tổng quát', N'kham-tong-quat', N'Khám sức khỏe tổng quát', N'icon1.png', 1, GETDATE(), N'admin1'),
@@ -390,39 +390,12 @@ VALUES
 (N'Vắc xin', N'vac-xin', N'Tiêm vắc xin phòng bệnh', N'icon5.png', 5, GETDATE(), N'admin1');
 INSERT INTO tb_Product (Title, Alias, ProductCategoryId, Description, Detail, Image, Price, PriceSale, Duration, DoctorId, CreatedDate, CreatedBy)
 VALUES
-(N'Khám tổng quát người lớn', N'kham-tong-quat-nguoi-lon', 1, N'Khám sức khỏe tổng quát', N'Bao gồm đo huyết áp, tim mạch, xét nghiệm cơ bản', N'product1.jpg', 500000, 450000, N'60 phút', 1, GETDATE(), N'admin1'),
-(N'Xét nghiệm máu', N'xet-nghiem-mau', 2, N'Xét nghiệm công thức máu', N'Đo nồng độ hồng cầu, bạch cầu...', N'product2.jpg', 200000, 180000, N'30 phút', 2, GETDATE(), N'admin1'),
-(N'Siêu âm ổ bụng', N'sieu-am-o-bung', 3, N'Siêu âm ổ bụng', N'Kiểm tra gan, thận, dạ dày...', N'product3.jpg', 350000, 300000, N'40 phút', 3, GETDATE(), N'admin1'),
-(N'Khám tim mạch chuyên sâu', N'kham-tim-mach-chuyen-sau', 4, N'Khám và chẩn đoán bệnh tim', N'Đo điện tâm đồ, siêu âm tim...', N'product4.jpg', 600000, 550000, N'50 phút', 1, GETDATE(), N'admin1'),
-(N'Tiêm vắc xin phòng cúm', N'tiem-vac-xin-phong-cum', 5, N'Tiêm vắc xin phòng cúm', N'Dành cho trẻ em và người lớn', N'product5.jpg', 150000, 150000, N'15 phút', NULL, GETDATE(), N'admin1');
-INSERT INTO tb_Patient (FullName, Gender, DateOfBirth, Phone, Email, Address, AccountId, CreatedDate)
-VALUES
-(N'Nguyễn Thị H', N'Nữ', '1992-02-15', N'0981122334', N'nguyenthih@example.com', N'12 Đường F, Hà Nội', 2, GETDATE()),
-(N'Lê Văn K', N'Nam', '1988-07-20', N'0912233445', N'levank@example.com', N'34 Đường G, Hà Nội', NULL, GETDATE()),
-(N'Phạm Thị L', N'Nữ', '1995-12-10', N'0963344556', N'phamthil@example.com', N'56 Đường H, Hà Nội', NULL, GETDATE()),
-(N'Trần Văn M', N'Nam', '1990-05-25', N'0934455667', N'tranvanm@example.com', N'78 Đường I, Hà Nội', NULL, GETDATE()),
-(N'Hoàng Thị N', N'Nữ', '1985-11-30', N'0975566778', N'hoangthin@example.com', N'90 Đường J, Hà Nội', NULL, GETDATE());
-INSERT INTO tb_BookingStatus (Name, Description)
-VALUES
-(N'Chờ xác nhận', N'Bệnh nhân đã đặt lịch, chờ xác nhận'),
-(N'Đã xác nhận', N'Bác sĩ đã xác nhận lịch hẹn'),
-(N'Đã hoàn tất', N'Khám xong'),
-(N'Đã hủy', N'Lịch hẹn bị hủy'),
-(N'Đang chờ thanh toán', N'Chờ thanh toán dịch vụ');
-INSERT INTO tb_Order (Code, PatientId, DoctorId, TotalAmount, BookingStatusId, BookingDate, AppointmentDate, CreatedDate, CreatedBy)
-VALUES
-(N'DH0001', 1, 1, 500000, 1, GETDATE(), DATEADD(DAY, 2, GETDATE()), GETDATE(), N'admin1'),
-(N'DH0002', 2, 2, 200000, 2, GETDATE(), DATEADD(DAY, 3, GETDATE()), GETDATE(), N'admin1'),
-(N'DH0003', 3, 3, 350000, 1, GETDATE(), DATEADD(DAY, 1, GETDATE()), GETDATE(), N'admin1'),
-(N'DH0004', 4, 1, 600000, 2, GETDATE(), DATEADD(DAY, 4, GETDATE()), GETDATE(), N'admin1'),
-(N'DH0005', 5, NULL, 150000, 3, GETDATE(), DATEADD(DAY, 2, GETDATE()), GETDATE(), N'admin1');
-INSERT INTO tb_OrderDetail (OrderId, ProductId, Price, Quantity, CreatedBy)
-VALUES
-(1, 1, 500000, 1, N'admin1'),
-(2, 2, 200000, 1, N'admin1'),
-(3, 3, 350000, 1, N'admin1'),
-(4, 4, 600000, 1, N'admin1'),
-(5, 5, 150000, 1, N'admin1');
+(N'Khám tổng quát người lớn', N'kham-tong-quat-nguoi-lon', 1, N'Khám sức khỏe tổng quát', N'Bao gồm đo huyết áp, tim mạch, xét nghiệm cơ bản', N'/assets/img/200x120/1-12-200x120.jpg', 500000, 450000, N'60 phút', 1, GETDATE(), N'admin1'),
+(N'Xét nghiệm máu', N'xet-nghiem-mau', 2, N'Xét nghiệm công thức máu', N'Đo nồng độ hồng cầu, bạch cầu...', N'/assets/img/200x120/1-4-200x120.jpg', 200000, 180000, N'30 phút', 2, GETDATE(), N'admin1'),
+(N'Siêu âm ổ bụng', N'sieu-am-o-bung', 3, N'Siêu âm ổ bụng', N'Kiểm tra gan, thận, dạ dày...', N'/assets/img/200x120/1-10-200x120.jpg', 350000, 300000, N'40 phút', 3, GETDATE(), N'admin1'),
+(N'Khám tim mạch chuyên sâu', N'kham-tim-mach-chuyen-sau', 4, N'Khám và chẩn đoán bệnh tim', N'Đo điện tâm đồ, siêu âm tim...', N'/assets/img/200x120/1-11-200x120.jpg', 600000, 550000, N'50 phút', 1, GETDATE(), N'admin1'),
+(N'Tiêm vắc xin phòng cúm', N'tiem-vac-xin-phong-cum', 5, N'Tiêm vắc xin phòng cúm', N'Dành cho trẻ em và người lớn', N'/assets/img/200x120/1-6-200x120.jpg', 150000, 150000, N'15 phút', NULL, GETDATE(), N'admin1'),
+(N'Dịch vụ xét nghiệm ', N'dich-vu-xet-nghiem', 5, N'Cung cấp các dịch vụ xét nghiệm đa dạng, chính xác và nhanh chóng, hỗ trợ chẩn đoán hiệu quả cho bác sĩ và bệnh nhân.', N'Dành cho trẻ em và người lớn', N'/assets/img/200x120/1-8-200x120.jpg', 136666, 144433, N'20 phút', 3, GETDATE(), N'admin1');
 INSERT INTO tb_ProductReview (Name, Phone, Email, CreatedDate, Detail, Star, ProductId, DoctorId)
 VALUES
 (N'Nguyễn Thị H', N'0981122334', N'nguyenthih@example.com', GETDATE(), N'Dịch vụ rất tốt', 5, 1, 1),
