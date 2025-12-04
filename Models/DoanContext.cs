@@ -49,7 +49,7 @@ public partial class DoanContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("data source=LAPTOP-QJVUPTPC\\MSSQLSERVER02; initial catalog=Doan; integrated security=True; TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-QJVUPTPC\\MSSQLSERVER02;Database=Doan;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -312,6 +312,17 @@ public partial class DoanContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.TbNews)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK__tb_News__Categor__76969D2E");
+        });
+
+        modelBuilder.Entity<TbNewsSimple>(entity =>
+        {
+            entity.HasKey(e => e.NewsSimpleId).HasName("PK__tb_NewsS__D7592A5F677AD08A");
+
+            entity.ToTable("tb_NewsSimple");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Image).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(250);
         });
 
         modelBuilder.Entity<TbProduct>(entity =>
