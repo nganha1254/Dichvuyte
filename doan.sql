@@ -136,64 +136,6 @@ CREATE TABLE tb_Product (
 );
 
 
-   ---BẢNG BỆNH NHÂN
-CREATE TABLE tb_Patient (
-    PatientId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    FullName NVARCHAR(150) NOT NULL,
-    Gender NVARCHAR(10) NULL,
-    DateOfBirth DATE NULL,
-    Phone NVARCHAR(50) NULL,
-    Email NVARCHAR(100) NULL,
-    Address NVARCHAR(250) NULL,
-    AccountId INT NULL,
-    CreatedDate DATETIME NULL,
-    ModifiedDate DATETIME NULL,
-    IsActive BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (AccountId) REFERENCES tb_Account(AccountId)
-);
-
-  --- BẢNG TRẠNG THÁI ĐƠN / ĐẶT LỊCH
-CREATE TABLE tb_BookingStatus (
-    BookingStatusId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Name NVARCHAR(50) NULL,
-    Description NVARCHAR(100) NULL
-);
-
-
-   --BẢNG ĐẶT LỊCH / ĐƠN DỊCH VỤ (tb_Order)
-CREATE TABLE tb_Order (
-    OrderId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Code NCHAR(10) NULL,
-    PatientId INT NULL,
-    DoctorId INT NULL,
-    TotalAmount INT NULL,
-    BookingStatusId INT NULL,
-    BookingDate DATETIME NULL,
-    AppointmentDate DATETIME NULL,
-    CreatedDate DATETIME NULL,
-    CreatedBy NVARCHAR(150) NULL,
-    ModifiedDate DATETIME NULL,
-    ModifiedBy NVARCHAR(150) NULL,
-    FOREIGN KEY (PatientId) REFERENCES tb_Patient(PatientId),
-    FOREIGN KEY (DoctorId) REFERENCES tb_Doctor(DoctorId),
-    FOREIGN KEY (BookingStatusId) REFERENCES tb_BookingStatus(BookingStatusId)
-);
-
-
-   ----BẢNG CHI TIẾT ĐƠN / LỊCH HẸN (tb_OrderDetail)
-CREATE TABLE tb_OrderDetail (
-    OrderDetailId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    OrderId INT NULL,
-    ProductId INT NULL,
-    Price DECIMAL(18, 0) NULL,
-    Quantity INT NULL,
-    CreatedBy NVARCHAR(150) NULL,
-    ModifiedDate DATETIME NULL,
-    ModifiedBy NVARCHAR(150) NULL,
-    IsActive BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (OrderId) REFERENCES tb_Order(OrderId),
-    FOREIGN KEY (ProductId) REFERENCES tb_Product(ProductId)
-);
 
 
    --BẢNG ĐÁNH GIÁ DỊCH VỤ HOẶC BÁC SĨ (tb_ProductReview)
@@ -351,6 +293,13 @@ CREATE TABLE tb_AboutDetails (
     IsActive BIT NOT NULL DEFAULT 1,              -- Trạng thái hoạt động của phần chi tiết (1: hiển thị, 0: không hiển thị)
     FOREIGN KEY (AboutId) REFERENCES tb_About(AboutId)  -- Liên kết với bảng tb_About
 );
+CREATE TABLE tb_NewsSimple (
+    NewsSimpleId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Title NVARCHAR(250) NULL,       -- Tiêu đề tin
+    Image NVARCHAR(500) NULL,       -- Ảnh đại diện
+    Detail NVARCHAR(MAX) NULL,      -- Nội dung chi tiết
+    CreatedDate DATETIME NULL       -- Ngày tạo tin
+);
 
 
 INSERT INTO tb_Role (RoleName, Description)
@@ -426,11 +375,11 @@ VALUES
 (N'Hoàng Văn J', N'0955778899', N'contact5@example.com', N'Tôi có thắc mắc về giá dịch vụ', 0, GETDATE(), N'user1');
 INSERT INTO tb_Menu (Title, Alias, Description, Levels, ParentId, Position, CreatedDate, CreatedBy)
 VALUES
-(N'Trang chủ', N'trang-chu', N'Menu trang chủ', 1, NULL, 1, GETDATE(), N'admin1'),
+(N'Trang chủ', N'home', N'Menu trang chủ', 1, NULL, 1, GETDATE(), N'admin1'),
 (N'Giới thiệu', N'gioi-thieu', N'Menu giới thiệu', 1, NULL, 2, GETDATE(), N'admin1'),
+(N'Bác sĩ', N'bac-si', N'Menu bác sĩ', 1, NULL, 4, GETDATE(), N'admin1'),
 (N'Dịch vụ', N'dich-vu', N'Menu dịch vụ', 1, NULL, 3, GETDATE(), N'admin1'),
-(N'Tin tức', N'tin-tuc', N'Menu tin tức', 1, NULL, 4, GETDATE(), N'admin1'),
-(N'Liên hệ', N'lien-he', N'Menu liên hệ', 1, NULL, 5, GETDATE(), N'admin1');
+(N'Liên hệ', N'Contact', N'Menu liên hệ', 1, NULL, 5, GETDATE(), N'admin1');
 INSERT INTO tb_Service 
 (
     Title, Alias, Icon, Image, ShortDescription, Detail,
@@ -528,3 +477,45 @@ VALUES
  N'Facebook: /MediNest, Twitter: @MediNest, LinkedIn: /MediNest', 
  N'Điền vào form này để liên hệ với chúng tôi về các dịch vụ và đặt lịch khám.', 
  GETDATE(), N'admin1', 1);
+ --- thêm tin tức 
+ INSERT INTO tb_NewsSimple (Title, Image, Detail, CreatedDate)
+VALUES
+(N'Thông báo lịch khám mới tại bệnh viện', 
+ N'/images/news/news1.jpg', 
+ N'Bệnh viện chính thức cập nhật lịch khám mới nhằm phục vụ tốt hơn cho bệnh nhân.', 
+ GETDATE());
+
+INSERT INTO tb_NewsSimple (Title, Image, Detail, CreatedDate)
+VALUES
+(N'Cảnh báo dịch sốt xuất huyết tăng cao', 
+ N'/images/news/news2.jpg', 
+ N'Bộ Y tế cảnh báo số ca mắc sốt xuất huyết tăng mạnh, người dân cần chủ động phòng chống.', 
+ GETDATE());
+
+INSERT INTO tb_NewsSimple (Title, Image, Detail, CreatedDate)
+VALUES
+(N'Khai trương khoa Nhi mới', 
+ N'/images/news/news3.jpg', 
+ N'Khoa Nhi mới được đưa vào hoạt động với trang thiết bị hiện đại và đội ngũ bác sĩ giàu kinh nghiệm.', 
+ GETDATE());
+
+INSERT INTO tb_NewsSimple (Title, Image, Detail, CreatedDate)
+VALUES
+(N'Chương trình khám sức khỏe miễn phí', 
+ N'/images/news/news4.jpg', 
+ N'Bệnh viện tổ chức chương trình khám sức khỏe miễn phí cho người dân vào cuối tuần.', 
+ GETDATE());
+
+INSERT INTO tb_NewsSimple (Title, Image, Detail, CreatedDate)
+VALUES
+(N'Hướng dẫn bảo vệ sức khỏe mùa lạnh', 
+ N'/images/news/news5.jpg', 
+ N'Chuyên gia khuyến cáo người dân giữ ấm đúng cách và tăng cường sức đề kháng trong mùa lạnh.', 
+ GETDATE());
+
+INSERT INTO tb_NewsSimple (Title, Image, Detail, CreatedDate)
+VALUES
+(N'Bệnh viện đạt chứng nhận chất lượng quốc tế', 
+ N'/images/news/news6.jpg', 
+ N'Với nhiều cải tiến, bệnh viện đã được chứng nhận đạt tiêu chuẩn chất lượng quốc tế.', 
+ GETDATE());
