@@ -17,12 +17,11 @@ public class HomeController : Controller
     {
         return View();
     }
-
-    [Route("Doctor")]
+    [Route("bac-si")]
     public IActionResult Doctors()
     {
         return View("~/Views/Doctor/Index.cshtml");
-    }    
+    }
     [Route("dich-vu")]
     public IActionResult Services()
     {
