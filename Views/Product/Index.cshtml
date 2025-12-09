@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Doan.Models.TbProduct>
+
+<div class="container py-5">
+    <div class="row g-5">
+
+        <!-- CONTENT LEFT -->
+        <div class="col-lg-8">
+
+            @foreach (var item in Model)
+            {
+                <div class="mb-5">
+
+                    <!-- Ảnh sản phẩm -->
+                    <img class="img-fluid w-100 rounded mb-5"
+                         src="@item.Image"
+                         alt="@item.Title">
+
+                    <!-- Tiêu đề -->
+                    <h1 class="mb-4">@item.Title</h1>
+
+                    <!-- MÔ TẢ -->
+                    <p>@item.Description</p>
+
+                    <!-- NỘI DUNG CHI TIẾT -->
+                    <p>@Html.Raw(item.Detail)</p>
+                </div>
+            }
+
+        </div>
+
+        <!-- SIDEBAR RIGHT -->
+        <div class="col-lg-4">
+
+            <!-- Search -->
+            <div class="mb-5">
+                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+                    Tìm kiếm
+                </h4>
+            <!-- Recent Post -->
+
+                @foreach (var post in Model.Take(5))
+                {
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid"
+                             src="@post.Image"
+                             style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="https://localhost:7025/Product/Index#!" class="h5 d-flex align-items-center bg-light px-3 mb-0">
+                            @post.Title
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <!-- Image -->
+            <div class="mb-5">
+                <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
+            </div>
+
+            <!-- Tags -->
+            <div class="mb-5">
+                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+                    Chuyên Khoa / Dịch Vụ
+                </h4>
+                <div class="d-flex flex-wrap m-n1">
+                    <a href="https://tamanhhospital.vn/benh/benh-tim-mach/" class="btn btn-primary m-1">Tim mạch</a>
+                    <a href="https://xaydungso.vn/blog/tim-hieu-ve-phuc-hoi-chuc-nang-nhi-khoa-va-vai-tro-cua-no-vi-cb.html" class="btn btn-primary m-1">Nhi khoa</a>
+                    <a href="https://benhvienbacha.vn/phau-thuat-chan-thuong-chinh-hinh-va-nhung-dieu-can-biet/" class="btn btn-primary m-1">Chỉnh hình</a>
+                    <a href="#!" class="btn btn-primary m-1">Huyết áp</a>
+                    <a href="#!" class="btn btn-primary m-1">Tiêm chủng</a>
+                    <a href="#!" class="btn btn-primary m-1">Xét nghiệm</a>
+                </div>
+            </div>
+
+
+            <!-- Plain text -->
+            <div>
+                <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">
+                    Thông Tin Y Tế
+                </h4>
+                <div class="bg-light rounded text-center" style="padding: 30px;">
+                    <p>
+                        Khám phá các bài viết, hướng dẫn chăm sóc sức khỏe và cập nhật thông tin y tế mới nhất từ chuyên khoa tim mạch, nhi khoa, chỉnh hình và nhiều dịch vụ khác.
+                    </p>
+                    <a href="#!" class="btn btn-primary py-2 px-4">Xem Thêm</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

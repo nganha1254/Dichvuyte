@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Doan.Models.TbService>
+
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="heading">
+            <div class="container">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="heading-title">Our Services</h1>
+                        <p class="mb-0">
+                            Browse through our list of services to find the right care for your needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="breadcrumbs">
+            <div class="container">
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="current">Services</li>
+                </ol>
+            </div>
+        </nav>
+    </div><!-- End Page Title -->
+    <!-- Services Section -->
+    <section id="services" class="services section">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="row g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="service-card">
+                            <div class="service-header">
+                                <div class="service-icon">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <span class="service-category">@item.SeoDescription</span> <!-- Hiển thị tên danh mục -->
+                            </div>
+                            <div class="service-body">
+                                <h4>@item.Title</h4>  <!-- Hiển thị tên dịch vụ -->
+                                <p>@item.ShortDescription</p>  <!-- Hiển thị mô tả ngắn -->
+                                <!-- Hiển thị ảnh của dịch vụ -->
+                                <div class="service-image">
+                                    <img src="@item.Image" alt="@item.Title" class="img-fluid">
+                                </div>
+
+                                <!-- Hiển thị tên bác sĩ phụ trách -->
+                                <div class="service-doctor">
+                                    <strong>Doctor: </strong>
+                                    @item.Doctor?.FullName  <!-- Hiển thị tên bác sĩ -->
+                                </div>
+                            </div>
+                            <div class="service-footer">
+                                <!-- Thêm nút "Learn More" với liên kết tới trang Details của dịch vụ -->
+                                <a href="@Url.Action("Details", "Service", new { id = item.ServiceId })" class="btn-primary">
+                                    Learn More
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section><!-- /Services Section -->
+
+</main>

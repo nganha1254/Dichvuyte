@@ -15,6 +15,7 @@ namespace Doan.Controllers
         {
             return View();
         }
+        
         [Route("/About/{alias}-{id}.html")]
         public async Task<IActionResult> Details(int? id)
         {
