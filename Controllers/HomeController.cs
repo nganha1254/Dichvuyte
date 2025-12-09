@@ -21,6 +21,7 @@ public class HomeController : Controller
         return View();
     }
 
+
     [Route("gioi-thieu")]
     public IActionResult About()
     {
@@ -35,6 +36,8 @@ public class HomeController : Controller
         var list = _context.TbDoctors.ToList();
         return View("~/Views/Doctor/Index.cshtml", list);
     }
+
+
 
     [Route("dich-vu")]
     public IActionResult Services()

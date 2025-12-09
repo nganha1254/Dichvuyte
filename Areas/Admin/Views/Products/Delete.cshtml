@@ -1,0 +1,137 @@
+﻿@model Doan.Models.TbProduct
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm sản phẩm</h3>
+                </div>
+                <!-- /.card-header -->
+                <!--form start-->
+                <div class="card-body">
+                <div class="form-group">
+                    <label>Tiêu đề</label>
+                    @Html.DisplayFor(model => model.Title)
+                </div>
+
+                <div class="form-group">
+                    <label>Alias</label>
+                    @Html.DisplayFor(model => model.Alias)
+                </div>
+
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+
+                <div class="form-group">
+                    <label>Chi tiết</label>
+                    @Html.DisplayFor(model => model.Detail)
+                </div>
+
+                <div class="form-group">
+                    <label>Giá</label>
+                    @Html.DisplayFor(model => model.Price)
+                </div>
+
+                <div class="form-group">
+                    <label>Giá sale</label>
+                    @Html.DisplayFor(model => model.PriceSale)
+                </div>
+
+                <div class="form-group">
+                    <label>Thời lượng</label>
+                    @Html.DisplayFor(model => model.Duration)
+                </div>
+
+                <div class="form-group">
+                    <label>Số slot</label>
+                    @Html.DisplayFor(model => model.SlotsAvailable)
+                </div>
+
+                <div class="form-group">
+                    <label>Ngày tạo</label>
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </div>
+
+                <div class="form-group">
+                    <label>Tạo bởi</label>
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </div>
+
+                <div class="form-group">
+                    <label>Sửa lần cuối</label>
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </div>
+
+                <div class="form-group">
+                    <label>Sửa bởi</label>
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </div>
+
+                <div class="form-group">
+                    <label>Mới</label>
+                    @Html.DisplayFor(model => model.IsNew)
+                </div>
+
+                <div class="form-group">
+                    <label>Nổi bật</label>
+                    @Html.DisplayFor(model => model.IsPopular)
+                </div>
+
+                <div class="form-group">
+                    <label>Hiển thị</label>
+                    @Html.DisplayFor(model => model.IsActive)
+                </div>
+
+                <div class="form-group">
+                    <label>Đánh giá (Star)</label>
+                    @Html.DisplayFor(model => model.Star)
+                </div>
+
+                <div class="form-group">
+                    <label>Bác sĩ</label>
+                    <p class="form-control-plaintext">
+                        @* an toàn nếu Doctor null *@
+                        @(Model.Doctor != null ? (Model.Doctor.GetType().GetProperty("FullName") != null ? Model.Doctor?.FullName : Model.Doctor?.DoctorId.ToString()) : "—")
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label>Danh mục</label>
+                    <p class="form-control-plaintext">
+                        @(Model.ProductCategory != null ? (Model.ProductCategory.GetType().GetProperty("Title") != null ? Model.ProductCategory?.Title : Model.ProductCategory?.ProductCategoryId.ToString()) : "—")
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label>Hình ảnh</label><br />
+
+                    @if (!string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img src="@Url.Content(Model.Image)" style="max-width:120px; max-height:120px;" class="img-thumbnail" />
+                    }
+                    else
+                    {
+                        <span>Không có ảnh</span>
+                    }
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="ProductId" />
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                    <a asp-action="Index" class="btn btn-info ml-2">Quay lại</a>
+                </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
