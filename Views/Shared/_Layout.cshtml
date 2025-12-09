@@ -37,27 +37,28 @@
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 </head>
-
+@RenderSection("Scripts", required: false)
 <body class="index-page">
 
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container position-relative d-flex align-items-center justify-content-between">
 
-            <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+            <a href="Home" class="logo d-flex align-items-center me-auto me-xl-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="~/assets/img/logo.webp" alt=""> -->
                 <h1 class="sitename">Medi<span>Nest</span></h1>
             </a>
 
            @await Component.InvokeAsync("MenuTop")
-
             <a class="btn-getstarted" href="https://localhost:7025/Appointment/Index">Đặt lịch </a>
-
+            <a href="/Admin/Home/Index" class="ms-3" style="font-size:30px; color:#0d6efd;">
+                <i class="bi bi-person-circle"></i>
+            </a>
         </div>
         <!-- jQuery must load before your scripts -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        @RenderSection("Scripts", required: false)
+        
 
     </header>
 @RenderBody()
