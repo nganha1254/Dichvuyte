@@ -1,0 +1,65 @@
+﻿@model Doan.Models.TbDoctor
+@{
+    ViewData["Title"] = "Thông tin bác sĩ";
+}
+
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <!-- Ảnh bác sĩ -->
+        <div class="col-md-4 text-center">
+            <img src="@Model.Image" class="img-fluid rounded shadow"
+                 alt="@Model.FullName" style="width: 100%; max-height: 380px; object-fit: cover;" />
+
+            <h3 class="mt-3">@Model.FullName</h3>
+            <p class="text-primary fw-bold">@Model.Position</p>
+            <p class="text-muted">
+                Khoa: @Model.Category?.Title
+            </p>
+        </div>
+
+        <!-- Thông tin chi tiết -->
+        <div class="col-md-8">
+            <h4 class="border-bottom pb-2">Tiểu sử - Thông tin bác sĩ</h4>
+
+            <table class="table table-borderless mt-3">
+                <tbody>
+                    <tr>
+                        <th style="width: 200px;">Giới tính:</th>
+                        <td>@Model.Gender</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày sinh:</th>
+                        <td>@Model.DateOfBirth?.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th>Số điện thoại:</th>
+                        <td>@Model.Phone</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ:</th>
+                        <td>@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th>Trình độ chuyên môn:</th>
+                        <td>@Model.Qualification</td>
+                    </tr>
+                    <tr>
+                        <th>Số năm kinh nghiệm:</th>
+                        <td>@Model.ExperienceYears năm</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 class="mt-4 border-bottom pb-2">Mô tả - Giới thiệu</h4>
+            <p class="mt-3" style="white-space: pre-line;">
+                @Model.Description
+            </p>
+
+            <a href="https://localhost:7025/bac-si" class="btn btn-secondary mt-3">Quay lại danh sách</a>
+        </div>
+    </div>
+</div>

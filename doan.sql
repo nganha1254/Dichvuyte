@@ -1,4 +1,4 @@
-﻿CREATE DATABASE Doan;
+﻿CREATE DATABASE Doan1;
 GO
 
 USE Doan;

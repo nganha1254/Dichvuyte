@@ -1,23 +1,28 @@
-﻿@model IEnumerable<Doan.Models.TbProduct>// sửa services
+﻿@model IEnumerable<Doan.Models.TbProduct>
 
 @foreach (var item in Model)
 {
-   
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
-                <div class="service-image">
-                    <img src="@item.Image" alt="Service" class="img-fluid" loading="lazy">
-                </div>
-                <div class="service-content">
-                    <h3>@item.Title</h3>
-                    <p>@item.Description</p>
-                </div>
+    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+
+            <div class="service-image">
+                <img src="@item.Image" alt="Service" class="img-fluid" loading="lazy">
+            </div>
+
+            <div class="service-content">
+                <h3>@item.Title</h3>
+                <p>@item.Description</p>
             </div>
         </div>
-
-        <!-- End Service Card -->
-
+    </div>
 }
+
+<!-- Nút chung, chỉ xuất hiện 1 lần -->
+<div class="text-center mt-4">
+    <a href="https://localhost:7025/Product/Index" class="btn btn-primary btn-lg">
+        Xem thêm
+    </a>
+</div>

@@ -1,44 +1,50 @@
 ﻿@model IEnumerable<Doan.Models.TbDoctor>
-@foreach (var item in Model)
+
+@foreach (var item in Model.Take(6))
 {
     <div class="col-md-4 col-sm-6 mb-4">
-    <div class="specialists-showcase" data-aos="fade-up" data-aos-delay="300">
-                <div class="specialist-card featured" data-aos="slide-up" data-aos-delay="100">
-                    <div class="card-content">
-                        <div class="specialist-info">
-                            <div class="profile-section">
-                                <div class="profile-image">
-                                    <img src="@item.Image" alt="Dr. Jennifer Morgan" class="img-fluid">
-                                    <div class="online-status active"></div>
-                                </div>
-                                <div class="specialist-data">
-                                    <h3>@item.FullName</h3>
-                                    <p class="specialty">@item.Position</p>
-                                    <div class="credentials">
-                                        <span class="badge">MD, FACC</span>
-                                        <span class="experience">@item.ExperienceYears</span>
-                                    </div>
-                                </div>
+        <div class="specialists-showcase" data-aos="fade-up" data-aos-delay="300">
+            <div class="specialist-card featured" data-aos="slide-up" data-aos-delay="100">
+                <div class="card-content">
+                    <div class="specialist-info">
+                        <div class="profile-section">
+                            <div class="profile-image">
+                                <img src="@item.Image" alt="@item.FullName" class="img-fluid">
+                                <div class="online-status active"></div>
                             </div>
-                            <div class="rating-info">
-                                <div class="stars-display">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
+                            <div class="specialist-data">
+                                <h3>@item.FullName</h3>
+                                <p class="specialty">@item.Position</p>
+                                <div class="credentials">
+                                    <span class="badge">MD, FACC</span>
+                                    <span class="experience">@item.ExperienceYears</span>
                                 </div>
-                                <span class="score">4.9</span>
-                                <small>(142 patients)</small>
                             </div>
                         </div>
-                        <div class="quick-actions">
-                            <a href="#" class="action-btn outline">Profile</a>
-                            <a href="#" class="action-btn primary">Consult</a>
+
+                        <div class="rating-info">
+                            <div class="stars-display">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <span class="score">4.9</span>
+                            <small>(142 patients)</small>
                         </div>
                     </div>
+
+                    <div class="quick-actions">
+                        <a href="@($"/Doctor/{item.FullName.ToLower().Replace(" ", "-")}-{item.DoctorId}.html")"
+                           class="action-btn outline">
+                            Tiểu sử
+                        </a>
+                        <a href="https://localhost:7025/Contact" class="action-btn primary">Tư vấn</a>
+                    </div>
+
                 </div>
-                </div>
-                </div>
+            </div>
+        </div>
+    </div>
 }
-</div>
