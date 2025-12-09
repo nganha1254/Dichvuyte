@@ -1,7 +1,7 @@
-﻿CREATE DATABASE Doan1;
+﻿CREATE DATABASE Doan;
 GO
 
-USE Doan1;
+USE Doan;
 GO
 CREATE TABLE tb_Role (
     RoleId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -64,8 +64,7 @@ CREATE TABLE tb_Doctor (
     FOREIGN KEY (CategoryId) REFERENCES tb_Category(CategoryId),
     FOREIGN KEY (AccountId) REFERENCES tb_Account(AccountId)
 );
-ALTER TABLE tb_Doctor
-ADD IsNew BIT NOT NULL DEFAULT 0;
+
 -- Tạo lại bảng dịch vụ
 CREATE TABLE tb_Service (
     ServiceId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -246,10 +245,9 @@ CREATE TABLE tb_Departments (
     CategoryId INT NULL,                      -- Khóa ngoại liên kết với bảng Chuyên khoa
     DoctorId INT NULL,                        -- Khóa ngoại liên kết với bác sĩ phụ trách
     FOREIGN KEY (CategoryId) REFERENCES tb_Category(CategoryId),  -- Liên kết với bảng tb_Category
-    FOREIGN KEY (DoctorId) REFERENCES tb_Doctor(DoctorId)    
-	ALTER TABLE tb_Departments
-ADD IsNew BIT NOT NULL DEFAULT 0;-- Liên kết với bảng tb_Doctor
-);
+    FOREIGN KEY (DoctorId) REFERENCES tb_Doctor(DoctorId)    );
+
+
 CREATE TABLE tb_About (
     AboutId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Title NVARCHAR(250) NULL,                  -- Tiêu đề phần giới thiệu (VD: "Về Chúng Tôi", "Giới thiệu Bệnh viện")
@@ -266,16 +264,7 @@ CREATE TABLE tb_About (
     ModifiedBy NVARCHAR(150) NULL,
     IsActive BIT NOT NULL DEFAULT 1
 );
--- Thêm trường CategoryId vào bảng tb_About
-ALTER TABLE tb_About
-ADD CategoryId INT NULL;
 
--- Thiết lập khóa ngoại (foreign key) giữa bảng tb_About và bảng tb_Category
-ALTER TABLE tb_About
-ADD CONSTRAINT FK_tb_About_tb_Category
-FOREIGN KEY (CategoryId) REFERENCES tb_Category(CategoryId);
-ALTER TABLE tb_About
-ADD IsNew BIT NOT NULL DEFAULT 0;  -- 0 có thể đại diện là không phải mới, 1 đại diện là mới
 
 CREATE TABLE tb_AboutDetails (
     AboutDetailsId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -300,7 +289,20 @@ CREATE TABLE tb_NewsSimple (
     Detail NVARCHAR(MAX) NULL,      -- Nội dung chi tiết
     CreatedDate DATETIME NULL       -- Ngày tạo tin
 );
+ALTER TABLE tb_Doctor
+ADD IsNew BIT NOT NULL DEFAULT 0;
+	ALTER TABLE tb_Departments
+ADD IsNew BIT NOT NULL DEFAULT 0;-- Liên kết với bảng tb_Doctor
+-- Thêm trường CategoryId vào bảng tb_About
+ALTER TABLE tb_About
+ADD CategoryId INT NULL;
 
+-- Thiết lập khóa ngoại (foreign key) giữa bảng tb_About và bảng tb_Category
+ALTER TABLE tb_About
+ADD CONSTRAINT FK_tb_About_tb_Category
+FOREIGN KEY (CategoryId) REFERENCES tb_Category(CategoryId);
+ALTER TABLE tb_About
+ADD IsNew BIT NOT NULL DEFAULT 0;  -- 0 có thể đại diện là không phải mới, 1 đại diện là mới
 
 INSERT INTO tb_Role (RoleName, Description)
 VALUES
@@ -320,7 +322,7 @@ VALUES
 (N'warehouse1', N'123456', N'Phạm Văn E', N'0966332211', N'warehouse1@example.com', 5, GETDATE(), 1),
 (N'ngan1', N'123456', N'Nguyễn Thị C', N'0595387376', N'ngan1@gmail.com', 6, GETDATE(), 1),
 (N'thao', N'123456', N'Phạm Văn E', N'0040453922', N'hang12@gmail.com', 7, GETDATE(), 1),
-(N'hai', N'123456', N'Nguyễn Phương Thúy', N'0598457383', N'thuy23@gmail.com', 8, GETDATE(), 1);
+(N'hai', N'123456', N'Nguyễn Phương Thúy', N'0598457383', N'thuy23@gmail.com', 7, GETDATE(), 1);
 INSERT INTO tb_Category (Title, Alias, Description, Position, CreatedDate, CreatedBy)
 VALUES
 (N'Tim mạch', N'tim-mach', N'Khám và điều trị bệnh tim mạch', 1, GETDATE(), N'admin1'),
@@ -340,7 +342,7 @@ VALUES
 (N'Nguyễn Thị Phương', N'Nữ', '1975-06-18', N'0489438821', N'dr.hoangvane@example.com', N'567 Đường E, Hà Nội', 5, N'Bác sĩ da liễu', N'Da liễu', 20, N'Chuyên điều trị các bệnh da liễu', N'/assets/img/200x100/1-10-200x100.jpg', 5, GETDATE(), N'admin1'),
 (N'Trần Thị Hải', N'Nữ', '1999-01-21', N'0093892221', N'dr.hai123@gmail.com', N'11 Nguyễn Phong Sắc', 6, N'Bác sĩ Cấp cứu', N'Cấp cứu', 20, N'Chuyên điều trị các bệnh da liễu', N'/assets/img/200x100/1-11-200x100.jpg', 7, GETDATE(), N'admin1'),
 (N'Nguyễn Thị Huyền', N'Nữ', '1970-04-21', N'0489438821', N'dr.huyen12@gmail.com', N'23 Đường Hà Huy Tập', 6, N'Bác sĩ Hô Hấp', N'Hô hấp', 20, N'Chuyên điều trị các bệnh da liễu', N'/assets/img/200x100/1-10-200x100.jpg', 7, GETDATE(), N'admin1'),
-(N'Nguyễn Văn Quân', N'Nam', '2000-10-20', N'0499384732', N'dr.quan12@gmail.com', N'10 Đường phạm Hằng', 7, N'Bác sĩ ngoại chấn thương', N'ngoại khoa', 20, N'Chuyên điều trị các bệnh da liễu', N'/assets/img/200x100/1-8-200x100.jpg', 10, GETDATE(), N'admin1');
+(N'Nguyễn Văn Quân', N'Nam', '2000-10-20', N'0499384732', N'dr.quan12@gmail.com', N'10 Đường phạm Hằng', 7, N'Bác sĩ ngoại chấn thương', N'ngoại khoa', 20, N'Chuyên điều trị các bệnh da liễu', N'/assets/img/200x100/1-8-200x100.jpg', 8, GETDATE(), N'admin1');
 INSERT INTO tb_ProductCategory (Title, Alias, Description, Icon, Position, CreatedDate, CreatedBy)
 VALUES
 (N'Dịch vụ Tim mạch Chất lượng Cao', N'tim-mach', N'Khám tim mạch', N'icon1.png', 1, GETDATE(), N'admin1'),
@@ -440,7 +442,7 @@ VALUES
  N'Điều trị da liễu', N'Dịch vụ điều trị da liễu', N'da liễu, mụn, viêm da',
  GETDATE(), N'admin1', 1, 0, 1);
  INSERT INTO tb_Departments 
-(DepartmentName, Alias, Description, Image, Position, SeoTitle, SeoDescription, SeoKeywords, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy, IsActive, CategoryId, DoctorId, IsNew)
+(DepartmentName, Alias, Description, Image, Position, SeoTitle, SeoDescription, SeoKeywords, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy, IsActive, CategoryId, DoctorId)
 VALUES
 -- Khoa Tim mạch
 (N'Tim mạch', N'tim-mach', N'Khám và điều trị bệnh tim mạch', N'department-tim-mach.jpg', 1, N'Khám tim mạch', N'Dịch vụ khám và tư vấn về bệnh tim mạch', N'tim mạch, bệnh tim, siêu âm tim', GETDATE(), N'admin1', GETDATE(), N'admin1', 1, 1, 1, 1),  -- IsNew = 1
@@ -455,7 +457,7 @@ VALUES
 (N'Nhi khoa', N'nhi-khoa', N'Khám và điều trị các bệnh lý về sức khỏe trẻ em', N'department-nhi-khoa.jpg', 4, N'Khám nhi khoa', N'Dịch vụ khám và điều trị bệnh lý cho trẻ em', N'nhi khoa, trẻ em, tiêm chủng', GETDATE(), N'admin1', GETDATE(), N'admin1', 1, 4, 4, 0); -- IsNew = 0
 
 -- Thêm 5 thông tin vào bảng tb_About (giới thiệu về bệnh viện)
-INSERT INTO tb_About (Title, Alias, ShortDescription, Detail, Image, SeoTitle, SeoDescription, SeoKeywords, CategoryId, IsNew, CreatedDate, CreatedBy, IsActive)
+INSERT INTO tb_About (Title, Alias, ShortDescription, Detail, Image, SeoTitle, SeoDescription, SeoKeywords, CreatedDate, CreatedBy, IsActive)
 VALUES
 (N'Giới thiệu Bệnh viện MediNest', N'gioi-thieu-benh-vien', 
  N'Chúng tôi là một bệnh viện chuyên cung cấp dịch vụ chăm sóc sức khỏe chất lượng cao.', 
