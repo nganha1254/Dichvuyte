@@ -1,0 +1,22 @@
+﻿/* Bỏ padding bóp nghẹt table */
+.table-responsive {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow-x: visible !important; /* nếu không muốn scroll */
+}
+
+/* Cho table bung full width */
+.table {
+    width: 100% !important;
+}
+
+/* Bỏ giới hạn card */
+.card-body {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+/* Mở rộng content-wrapper */
+.content-wrapper {
+    max-width: 100% !important;
+}

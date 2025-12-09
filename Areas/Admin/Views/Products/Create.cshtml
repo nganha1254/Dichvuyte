@@ -1,0 +1,104 @@
+﻿@model Doan.Models.TbProduct
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm sản phẩm</h3>
+                </div>
+                <!-- /.card-header -->
+                <!--form start-->
+                <form asp-action="Create">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label">Tiêu đề</label>
+                                <input asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Alias" class="control-label"></label>
+                                <input asp-for="Alias" class="form-control" />
+                                <span asp-validation-for="Alias" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProductCategoryId" class="control-label">Danh mục</label>
+                                <select asp-for="ProductCategoryId" asp-items="ViewBag.ProductCategoryId" class="form-control">
+                                    <option value="0" selected>-- [Chọn danh mục] --</option>
+                                </select>
+                                <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+                                </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label">Mô tả</label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>                                        
+                            <div class="form-group">
+                                <label asp-for="Detail" class="control-label">Chi tiết</label>
+                                <input asp-for="Detail" class="form-control" />
+                                <span asp-validation-for="Detail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Image" class="control-label">Ảnh</label>
+                                <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <button type="button" class="btn btn-success" onclick="openFileManager()">
+                                    Chọn ảnh
+                                </button>
+                            </div>
+                                <input type="text" class="form-control" id="file_input" asp-for="Image" aria-describedby="button-addon2" />
+                            </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Price" class="control-label">Giá</label>
+                                    <input asp-for="Price" type="number" step="1" class="form-control" />
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="PriceSale" class="control-label">Giá giảm</label>
+                                    <input asp-for="PriceSale" type="number" step="1" class="form-control" />
+                                    <span asp-validation-for="PriceSale" class="text-danger"></span>
+                                </div>
+                                    
+                            </div>
+                        <div class="form-group form-check ">
+                            <label class="form-check-label">
+                                <input asp-for="IsNew" class="form-check-input" />Mới
+                            </label>
+                        </div>
+                        <div class="form-group form-check ">
+                            <label class="form-check-label">
+                                <input asp-for="IsActive" class="form-check-input" /> Hiện thị
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Star" class="control-label">Star</label>
+                            <input asp-for="Star" type="number" step="1" class="form-control" />
+                            <span asp-validation-for="Star" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+
+                                <!-- /.card-body -->
+        </div>
+                            <!-- /.card -->
+    </div>
+</div>
+</div>
+                
+<!-- content-wrapper ends -->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
