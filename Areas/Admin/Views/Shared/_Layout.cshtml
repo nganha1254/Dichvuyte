@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>RoyalUI Admin</title>
+    <title>Admin</title>
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="~/admin/vendors/ti-icons/css/themify-icons.css" />
@@ -12,9 +12,15 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="~/admin/css/style.css" />
     <!-- endinject -->
+    <link rel="stylesheet" href="~/admin/css/custom.css" />
 
     <link rel="shortcut icon" href="~/admin/images/favicon.png" />
     <link rel="stylesheet" href="~/admin/css/custom.css" />
+    <link rel="stylesheet" href="~/admin/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/admin/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+
 </head>
 @RenderSection("Scripts", required: false)
 <body>
@@ -146,7 +152,7 @@
                                 <i class="ti-settings text-primary"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="/admin/login/index">
                                 <i class="ti-power-off text-primary"></i>
                                 Logout
                             </a>
@@ -163,6 +169,17 @@
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/admin/images/faces/face28.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#">@Doan.Utilities.Function._UserName</a>
+                        </div>
+                        <div class="info">
+                            <a class="text-right" href="/admin/login/index">(Log Out)</a>
+                        </div>
+                    </div>
                     <li class="nav-item">
                         <a class="nav-link" href="/Admin/Menus/Index">
                             <i class="ti-menu menu-icon"></i>
