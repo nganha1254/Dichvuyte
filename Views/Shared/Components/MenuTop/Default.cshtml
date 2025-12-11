@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<Doan.Models.TbMenu>
 @foreach (var item in Model.Where(i => i.Levels == 1))
 {
-    <li class="drop-holder">
-        <a href="/@item.Alias">
-            @item.Title
-        </a>
-    </li>
+    <nav id="navmenu" class="navmenu">
+        <ul>
+            <li>
+                <a href="/@item.Alias"> @item.Title</a>
+            </li>
+        </ul>
+        </nav>
 }

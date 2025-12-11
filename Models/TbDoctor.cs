@@ -25,7 +25,7 @@ public partial class TbDoctor
 
     public string? Qualification { get; set; }
 
-    public int? ExperienceYears { get; set; }
+    public string? ExperienceYears { get; set; }
 
     public string? Description { get; set; }
 
@@ -48,6 +48,8 @@ public partial class TbDoctor
     public virtual TbAccount? Account { get; set; }
 
     public virtual TbCategory? Category { get; set; }
+
+    public virtual ICollection<TbAppointment> TbAppointments { get; set; } = new List<TbAppointment>();
 
     public virtual ICollection<TbDepartment> TbDepartments { get; set; } = new List<TbDepartment>();
 

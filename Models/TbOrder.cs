@@ -7,33 +7,19 @@ public partial class TbOrder
 {
     public int OrderId { get; set; }
 
-    public string? Code { get; set; }
+    public int AccountId { get; set; }
 
-    public int? PatientId { get; set; }
+    public int TotalAmount { get; set; }
 
-    public int? DoctorId { get; set; }
+    public bool PaymentStatus { get; set; }
 
-    public int? TotalAmount { get; set; }
+    public string OrderStatus { get; set; } = null!;
 
-    public int? BookingStatusId { get; set; }
-
-    public DateTime? BookingDate { get; set; }
-
-    public DateTime? AppointmentDate { get; set; }
-
-    public DateTime? CreatedDate { get; set; }
-
-    public string? CreatedBy { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public DateTime? ModifiedDate { get; set; }
 
-    public string? ModifiedBy { get; set; }
+    public virtual TbAccount Account { get; set; } = null!;
 
-    public virtual TbBookingStatus? BookingStatus { get; set; }
-
-    public virtual TbDoctor? Doctor { get; set; }
-
-    public virtual TbPatient? Patient { get; set; }
-
-    public virtual ICollection<TbOrderDetail> TbOrderDetails { get; set; } = new List<TbOrderDetail>();
+    public virtual ICollection<TbOrderItem> TbOrderItems { get; set; } = new List<TbOrderItem>();
 }

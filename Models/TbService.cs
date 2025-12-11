@@ -51,5 +51,9 @@ public partial class TbService
 
     public virtual TbDoctor? Doctor { get; set; }
 
+    public virtual ICollection<TbCartItem> TbCartItems { get; set; } = new List<TbCartItem>();
+
+    public virtual ICollection<TbOrderItem> TbOrderItems { get; set; } = new List<TbOrderItem>();
+
     public virtual ICollection<TbServiceBooking> TbServiceBookings { get; set; } = new List<TbServiceBooking>();
 }

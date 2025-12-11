@@ -26,18 +26,9 @@
     <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="~/assets/css/main.css" rel="stylesheet">
     <link href="~/assets/toastr/toastr.css" rel="stylesheet" />
-
-    <!-- =======================================================
-    * Template Name: MediNest
-    * Template URL: https://bootstrapmade.com/medinest-bootstrap-hospital-template/
-    * Updated: Aug 11 2025 with Bootstrap v5.3.7
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+    <link href="~/assets/css/main.css" rel="stylesheet">
 </head>
-@RenderSection("Scripts", required: false)
 <body class="index-page">
 
     <header id="header" class="header d-flex align-items-center fixed-top">
@@ -56,7 +47,7 @@
             </a>
         </div>
         <!-- jQuery must load before your scripts -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       
 
         
 
@@ -169,6 +160,7 @@
 
 
     @await Html.PartialAsync("~/Views/Home/chat.cshtml")
+    @RenderSection("Scripts", required: false)
 
 </body>
 

@@ -39,6 +39,10 @@ public partial class TbAppointment
 
     public bool IsActive { get; set; }
 
+    public int? Price { get; set; }
+
+    public bool? PaymentStatus { get; set; }
+
     public virtual TbAccount? Account { get; set; }
 
     public virtual TbCategory? Category { get; set; }

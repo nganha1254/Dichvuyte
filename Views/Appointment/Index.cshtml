@@ -83,67 +83,67 @@
                 </div><!-- End Appointment Info -->
                 <!-- Appointment Form -->
                 <div class="col-lg-6">
-                    <div class="appointment-form-wrapper" data-aos="fade-up" data-aos-delay="200">
-                        <form action="forms/appointment.php" method="post" class="appointment-form php-email-form">
-                            <div class="row gy-3">
+                    <form action="javascript:void(0)" class="appointment-form">
 
-                                <div class="col-md-6">
-                                    <input type="text" id="c_name" class="form-control" placeholder="Your Full Name" required="">
-                                </div>
+                        <div class="row gy-3">
 
-                                <div class="col-md-6">
-                                    <input type="email" id="c_email" class="form-control" placeholder="Your Email" required="">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <input type="tel" id="c_phone" class="form-control" placeholder="Your Phone Number" required="">
-                                </div>
-
-                                <div class="col-md-6">
-                                   <select id="categoryId" id="c_categoryName" class="form-select" required="">
-    <option value="">Chọn khoa</option>
-    <option value="1">Tim mạch</option>
-    <option value="2">Thần kinh</option>
-    <option value="3">Tiêu hóa</option>
-    <option value="4">Nhi khoa</option>
-    <option value="4">Da liễu</option>
-</select>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <input type="date" id="c_date" class="form-control" required="">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <select id="c_doctorName" class="form-select">
-                                        <option value="">Chọn bác sĩ</option>
-                                        <option value="1">Nguyễn Văn Anh</option>
-                                        <option value="2">Lê Thị Bình</option>
-                                        <option value="3">Phạm Văn Kiên</option>
-                                        <option value="4">Trần Thị Duyên</option>
-                                        <option value="5">Nguyễn Thị Phương</option>
-                                    </select>
-
-                                </div>
-
-                                <div class="col-12">
-                                    <textarea class="form-control" id="c_message" rows="5" placeholder="Vui lòng mô tả triệu chứng hoặc lý do bạn đên khám"></textarea>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="loading">Đang xử lý...</div>
-                                    <div class="error-message"></div>
-                                    <div class="sent-message">Yêu cầu đặt lịch của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!</div>
-
-                                    <button type="submit" class="btn btn-appointment w-100">
-                                        <i class="bi bi-calendar-plus me-2"></i>Đặt lịch khám
-                                    </button>
-                                </div>
-
+                            <div class="col-md-6">
+                                <input type="text" id="c_name" class="form-control" placeholder="Your Full Name" required="">
                             </div>
-                        </form>
-                    </div>
+
+                            <div class="col-md-6">
+                                <input type="email" id="c_email" class="form-control" placeholder="Your Email" required="">
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="tel" id="c_phone" class="form-control" placeholder="Your Phone Number" required="">
+                            </div>
+
+                            <div class="col-md-6">
+                                <select id="categoryId" class="form-select" required="">
+                                    <option value="">Chọn khoa</option>
+                                    <option value="1">Tim mạch</option>
+                                    <option value="2">Thần kinh</option>
+                                    <option value="3">Tiêu hóa</option>
+                                    <option value="4">Nhi khoa</option>
+                                    <option value="5">Da liễu</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="date" id="c_date" class="form-control" required="">
+                            </div>
+
+                            <div class="col-md-6">
+                                <select id="c_doctorName" class="form-select">
+                                    <option value="">Chọn bác sĩ</option>
+                                    <option value="1">Nguyễn Văn Anh</option>
+                                    <option value="2">Lê Thị Bình</option>
+                                    <option value="3">Phạm Văn Kiên</option>
+                                    <option value="4">Trần Thị Duyên</option>
+                                    <option value="5">Nguyễn Thị Phương</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <textarea class="form-control" id="c_message" rows="5" placeholder="Vui lòng mô tả triệu chứng"></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="loading" style="display:none">Đang xử lý...</div>
+                                <div class="error-message" style="display:none; color:red;"></div>
+                                <div class="sent-message" style="display:none; color:green;">
+                                    Yêu cầu đặt lịch của bạn đã được gửi thành công!
+                                </div>
+
+                                <button type="submit" class="btn btn-appointment w-100">
+                                    <i class="bi bi-calendar-plus me-2"></i>Đặt lịch khám
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+
                 </div><!-- End Appointment Form -->
 
             </div>
@@ -205,46 +205,58 @@
 </main>
 @section Scripts {
     <script>
-        $(function () {
+        $(document).ready(function () {
 
-                   $(".appointment-form").on("submit", function (e) {
-            e.preventDefault();
+            $(".appointment-form").on("submit", function (e) {
+                e.preventDefault();
 
-            let _name = $("#c_name").val();
-            let _email = $("#c_email").val();
-            let _phone = $("#c_phone").val();
-            let _date = $("#c_date").val();
-            let _department = $("#categoryId").val(); // sửa đúng ID
-            let _doctor = $("#c_doctorName").val();   // sửa đúng ID
-            let _message = $("#c_message").val();
+                // Hiện loading
+                $(".loading").show();
+                $(".error-message").hide();
+                $(".sent-message").hide();
 
-            $.ajax({
-                url: "/Appointment/Create",
-                type: "POST",
-                data: {
-                    name: _name,
-                    phone: _phone,
-                    email: _email,
-                    message: _message,
-                    CreatedDate: _date,       // GỬI ĐÚNG TÊN PARAM
-                    CategoryName: _department,
-                    DoctorName: _doctor
-                },
-                success: function (result) {
-                    if (result.status) {
-                        toastr.success("Đặt lịch thành công!");
-                        $(".appointment-form")[0].reset();
-                    } else {
-                        toastr.error("Đặt lịch thất bại!");
+                let _name = $("#c_name").val();
+                let _email = $("#c_email").val();
+                let _phone = $("#c_phone").val();
+                let _date = $("#c_date").val();
+                let _department = $("#categoryId").val();
+                let _doctor = $("#c_doctorName").val();
+                let _message = $("#c_message").val();
+
+                $.ajax({
+                    url: "/Appointment/Create",
+                    type: "POST",
+                    data: {
+                        name: _name,
+                        phone: _phone,
+                        email: _email,
+                        message: _message,
+                        CreatedDate: _date,
+                        CategoryName: _department,
+                        DoctorName: _doctor
+                    },
+                    success: function (result) {
+
+                        $(".loading").hide();
+
+                        if (result.status) {
+                            $(".sent-message").show();   // hiện success
+                            $(".appointment-form")[0].reset();
+                        } else {
+                            $(".error-message").text("Đặt lịch thất bại!");
+                            $(".error-message").show();
+                        }
+                    },
+                    error: function () {
+                        $(".loading").hide();
+                        $(".error-message").text("Lỗi kết nối server!");
+                        $(".error-message").show();
                     }
-                },
-                error: function () {
-                    toastr.error("Lỗi kết nối server!");
-                }
+                });
             });
-        });
 
         });
     </script>
+
 }
 
