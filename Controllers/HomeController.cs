@@ -59,6 +59,11 @@ public class HomeController : Controller
     {
         return View("~/Views/Contact/Index.cshtml");
     }
+    public IActionResult Chat()
+    {
+        return View();
+    }
+
 
     public IActionResult Privacy()
     {

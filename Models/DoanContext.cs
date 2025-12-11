@@ -49,6 +49,8 @@ public partial class DoanContext : DbContext
 
     public virtual DbSet<TbService> TbServices { get; set; }
 
+    public virtual DbSet<TbServiceBooking> TbServiceBookings { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=LAPTOP-QJVUPTPC\\MSSQLSERVER02;Database=Doan;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -429,6 +431,30 @@ public partial class DoanContext : DbContext
             entity.HasOne(d => d.Doctor).WithMany(p => p.TbServices)
                 .HasForeignKey(d => d.DoctorId)
                 .HasConstraintName("FK__tb_Servic__Docto__4F7CD00D");
+        });
+
+        modelBuilder.Entity<TbServiceBooking>(entity =>
+        {
+            entity.HasKey(e => e.BookingId).HasName("PK__tb_Servi__73951AED5B7A2A80");
+
+            entity.ToTable("tb_ServiceBooking");
+
+            entity.Property(e => e.AppointmentDate).HasColumnType("datetime");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(150);
+            entity.Property(e => e.Notes).HasMaxLength(500);
+            entity.Property(e => e.PatientName).HasMaxLength(150);
+            entity.Property(e => e.Phone).HasMaxLength(50);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasDefaultValue("Pending");
+
+            entity.HasOne(d => d.Service).WithMany(p => p.TbServiceBookings)
+                .HasForeignKey(d => d.ServiceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__tb_Servic__Servi__51300E55");
         });
 
         OnModelCreatingPartial(modelBuilder);

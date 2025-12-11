@@ -8,12 +8,9 @@
             <div class="container">
                 <div class="row d-flex justify-content-center text-center">
                     <div class="col-lg-8">
-                        <h1 class="heading-title">@Model.Title</h1> <!-- Hiển thị tên dịch vụ -->
+                        <h1 class="heading-title">Chi tiết dịch vụ</h1>
                         <p class="mb-0">
-                            Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                            odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                            debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                            ipsum dolorem.
+                            Thuốc và các liệu pháp liên quan đến các triệu chứng. Các thủ tục y tế cần thiết. Dịch vụ y tế nhằm giải quyết các vấn đề sức khỏe một cách an toàn và hiệu quả. Cần đánh giá và theo dõi tình trạng bệnh nhân. Việc chăm sóc phải tuân theo các quy trình chuẩn y tế.
                         </p>
                     </div>
                 </div>
@@ -27,7 +24,8 @@
                 </ol>
             </div>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
+
     <!-- Service Details 2 Section -->
     <section id="service-details-2" class="service-details-2 section">
 
@@ -37,30 +35,34 @@
 
                 <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
                     <div class="service-image">
-                        <!-- Hiển thị ảnh dịch vụ -->
                         <img src="@Model.Image" alt="@Model.Title" class="img-fluid">
                         <div class="service-tag">
-                            <span>Specialized Care</span>
+                            <span>@Model.SeoDescription</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                     <div class="service-content">
-                        <h2>@Model.Title</h2> <!-- Hiển thị tên dịch vụ -->
-                        <p class="service-tagline">@Model.ShortDescription</p> <!-- Hiển thị mô tả ngắn -->
-                        <!-- Mô tả chi tiết dịch vụ -->
+                        <h2>@Model.Title</h2>
+                        <p class="service-tagline">@Model.ShortDescription</p>
+
+                        <!-- GIÁ DỊCH VỤ (GIÁ GỐC) -->
+                        <div class="service-price">
+                            <strong>Price: </strong>
+                            @String.Format("{0:N0} đ", Model.Price)
+                        </div>
+                        <!-- END GIÁ -->
+
                         <p>@Model.Detail</p>
 
-                        <!-- Hiển thị tên bác sĩ phụ trách -->
                         <div class="service-doctor">
                             <strong>Doctor: </strong>
-                            @Model.Doctor?.FullName <!-- Hiển thị tên bác sĩ -->
+                            @Model.Doctor?.FullName
                         </div>
 
                         <div class="service-actions">
-                            <a href="appointment.html" class="btn-primary">Schedule Consultation</a>
-                            <a href="#" class="btn-secondary">Learn More</a>
+                            <a href="appointment.html" class="btn-primary">Đặt lịch khám tư vấn</a>
                         </div>
                     </div>
                 </div>
@@ -68,6 +70,6 @@
             </div>
 
         </div>
-    </section><!-- /Service Details 2 Section -->
+    </section>
 
 </main>
