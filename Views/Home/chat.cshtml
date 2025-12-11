@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "ChatAI";
+}
+
+<style>
+    /* Khung chat cố định ở góc phải */
+    #chatWidget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 320px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        font-family: Arial;
+        z-index: 99999;
+    }
+
+    /* Header thu gọn/mở rộng */
+    #chatHeader {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+        cursor: pointer;
+    }
+
+    /* Nội dung chat */
+    #chatBody {
+        display: none;
+        padding: 10px;
+    }
+
+    /* Hộp chat */
+    #chatBox {
+        border: 1px solid #ddd;
+        height: 200px;
+        padding: 8px;
+        overflow-y: auto;
+        background: #fafafa;
+    }
+
+    /* Form gửi tin */
+    #chatForm {
+        margin-top: 10px;
+        display: flex;
+    }
+
+    #questionInput {
+        flex: 1;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    #chatForm button {
+        margin-left: 6px;
+        padding: 6px 10px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+<div id="chatWidget">
+    <div id="chatHeader">💬 Chat AI</div>
+
+    <div id="chatBody">
+
+        <!-- GIỮ NGUYÊN CODE QUAN TRỌNG -->
+        <form id="chatForm">
+            <input type="text" id="questionInput" placeholder="Nhập câu hỏi..." />
+            <button type="submit">Gửi</button>
+        </form>
+
+        <div id="chatBox"></div>
+        <!-- KẾT THÚC PHẦN GIỮ NGUYÊN -->
+
+    </div>
+</div>
+
+<script>
+    // Thu gọn / mở chat
+    document.getElementById("chatHeader").onclick = () => {
+        const body = document.getElementById("chatBody");
+        body.style.display = (body.style.display === "none") ? "block" : "none";
+    };
+
+    // Giữ nguyên logic gửi của bạn
+    document.getElementById('chatForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const question = document.getElementById('questionInput').value;
+        if (!question) return;
+
+        const response = await fetch('/Home/Chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML += `<p><b>Bạn:</b> ${question}</p>`;
+        chatBox.innerHTML += `<p><b>AI:</b> ${data.answer}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        document.getElementById('questionInput').value = "";
+    });
+</script>

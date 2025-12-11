@@ -1,6 +1,10 @@
 using Doan.Models;
+using Doan.service;
+using Doan.service.Llm;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using OpenAI.Chat;
+using SixLabors.ImageSharp.Formats;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DoanContext>(options =>
 {
@@ -8,6 +12,25 @@ builder.Services.AddDbContext<DoanContext>(options =>
 });
 
 // Add services to the container.
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>(optional: true);
+
+}
+var configuration = builder.Configuration.Get<Config>()?? new Config();
+builder.Services.AddSingleton(configuration);
+//register open AI
+if (configuration.Provider == "OpenAI")
+{ 
+builder.Services.AddScoped<ILlmChatProvider, OpenAIChatProvider>();
+    builder.Services.AddSingleton(new ChatClient(configuration.OpenAI.ChatModel, configuration.OpenAI.ApiKey));
+}
+else
+{
+    builder.Services.AddScoped<ILlmChatProvider, OllamaChatProvider>();
+}
+builder.Services.AddScoped<RagPipeline>();
+
 builder.Services.AddControllersWithViews();
 
 // Add services to the container.
@@ -37,5 +60,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.MapControllers();
 
 app.Run();

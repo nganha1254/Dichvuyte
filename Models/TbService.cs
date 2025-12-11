@@ -45,7 +45,11 @@ public partial class TbService
 
     public bool IsActive { get; set; }
 
+    public int? Price { get; set; }
+
     public virtual TbCategory? Category { get; set; }
 
     public virtual TbDoctor? Doctor { get; set; }
+
+    public virtual ICollection<TbServiceBooking> TbServiceBookings { get; set; } = new List<TbServiceBooking>();
 }
