@@ -63,7 +63,6 @@ namespace Doan.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 _context.Add(tbDoctor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -87,7 +86,7 @@ namespace Doan.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "AccountId", tbDoctor.AccountId);
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId", tbDoctor.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "Title", tbDoctor.CategoryId);
             return View(tbDoctor);
         }
 
@@ -124,7 +123,7 @@ namespace Doan.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "AccountId", tbDoctor.AccountId);
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId", tbDoctor.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "Title", tbDoctor.CategoryId);
             return View(tbDoctor);
         }
 
