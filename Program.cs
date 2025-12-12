@@ -10,6 +10,13 @@ builder.Services.AddDbContext<DoanContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+// C?u hình Session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Th?i gian h?t h?n session
+    options.Cookie.HttpOnly = true;  // Ch? có th? truy c?p qua HTTP
+    options.Cookie.IsEssential = true;  // Cookie c?n thi?t
+});
 
 // Add services to the container.
 if (!builder.Environment.IsDevelopment())
@@ -47,7 +54,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseSession();  // **B?t session ?? theo dõi gi? hàng**
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "areas",

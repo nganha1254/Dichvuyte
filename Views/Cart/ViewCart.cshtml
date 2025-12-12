@@ -1,0 +1,108 @@
+﻿@model Doan.Models.TbCart
+
+@{
+    Layout = "_Layout";
+}
+
+<style>
+    /* Tạo khoảng cách với menu */
+    .cart-container {
+        margin-top: 80px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Thẻ tiêu đề */
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    /* Bảng đẹp hơn */
+    .table {
+        width: 100%;
+        background: white;
+        border-collapse: collapse;
+    }
+
+        .table th {
+            background: #f0f4ff;
+            padding: 12px;
+            border-bottom: 2px solid #ddd;
+            text-align: left;
+        }
+
+        .table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+    /* Dòng trống giỏ hàng */
+    .empty-cart {
+        text-align: center;
+        padding: 20px;
+        font-size: 18px;
+        background: #eaf6ff;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+
+    /* Tổng tiền */
+    .total-price {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    /* Nút thanh toán */
+    .btn-primary {
+        display: block;
+        margin-left: auto;
+    }
+
+</style>
+
+<div class="cart-container">
+    <h2>Giỏ Hàng</h2>
+
+    @if (!Model.TbCartItems.Any())
+    {
+        <p class="empty-cart">Giỏ hàng của bạn trống. Hãy thêm sản phẩm vào giỏ hàng!</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Dịch Vụ</th>
+                    <th>Bác Sĩ</th>
+                    <th>Số Lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TbCartItems)
+                {
+                    <tr>
+                        <td>@item.Service.Title</td>
+                        <td>@item.DoctorName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                        <td>@(item.Quantity * item.Price)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p class="total-price">
+            Tổng Tiền: @Model.TbCartItems.Sum(ci => ci.Quantity * ci.Price)
+        </p>
+
+        <form asp-action="Checkout">
+            <button type="submit" class="btn btn-primary">Tiến Hành Thanh Toán</button>
+        </form>
+    }
+</div>

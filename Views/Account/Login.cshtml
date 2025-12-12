@@ -1,0 +1,35 @@
+﻿@model Doan.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Đăng Nhập";
+}
+
+<div style="margin-top: 80px; max-width: 400px; margin-left: auto; margin-right: auto;">
+    <h2 style="text-align:center;">Đăng Nhập</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div style="color: red; margin-bottom: 15px; text-align:center;">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <form method="post" style="display:flex; flex-direction:column; gap:15px;">
+        <div>
+            <label for="Username">Tên đăng nhập:</label>
+            <input type="text" id="Username" name="Username" value="@(Model?.Username ?? "")" required
+                   style="width:100%; padding:8px; margin-top:5px;" />
+        </div>
+
+        <div>
+            <label for="Password">Mật khẩu:</label>
+            <input type="password" id="Password" name="Password" value="@(Model?.Password ?? "")" required
+                   style="width:100%; padding:8px; margin-top:5px;" />
+        </div>
+
+        <button type="submit"
+                style="padding:10px; background:#007bff; color:white; border:none; cursor:pointer;">
+            Đăng nhập
+        </button>
+    </form>
+</div>

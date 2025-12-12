@@ -1,5 +1,52 @@
 ﻿@model Doan.Models.TbService
 
+<style>
+    /* ---- TÔ MÀU GIÁ DỊCH VỤ ---- */
+    .service-price {
+        font-size: 22px;
+        font-weight: bold;
+        color: #e63946; /* đỏ đẹp */
+        background: #ffe8e8;
+        padding: 10px 18px;
+        border-radius: 8px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    /* ---- TÔ MÀU CHỮ BÁC SĨ / KHOA ---- */
+    .service-label {
+        font-weight: 600;
+        color: #1d3557; /* xanh đậm */
+    }
+
+    /* ---- TIÊU ĐỀ DỊCH VỤ ---- */
+    .service-content h2 {
+        color: #0a3d62;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    /* ---- MÔ TẢ NGẮN ---- */
+    .service-tagline {
+        font-style: italic;
+        color: #444;
+        margin-bottom: 15px;
+    }
+
+    /* ---- BLOCK BÁC SĨ + KHOA ---- */
+    .service-doctor,
+    .service-category {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .service-image img {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+</style>
+
+
 <main class="main">
 
     <!-- Page Title -->
@@ -10,7 +57,9 @@
                     <div class="col-lg-8">
                         <h1 class="heading-title">Chi tiết dịch vụ</h1>
                         <p class="mb-0">
-                            Thuốc và các liệu pháp liên quan đến các triệu chứng. Các thủ tục y tế cần thiết. Dịch vụ y tế nhằm giải quyết các vấn đề sức khỏe một cách an toàn và hiệu quả. Cần đánh giá và theo dõi tình trạng bệnh nhân. Việc chăm sóc phải tuân theo các quy trình chuẩn y tế.
+                            Thuốc và các liệu pháp liên quan đến các triệu chứng. Các thủ tục y tế cần thiết.
+                            Dịch vụ y tế nhằm giải quyết các vấn đề sức khỏe một cách an toàn và hiệu quả.
+                            Cần đánh giá và theo dõi tình trạng bệnh nhân. Việc chăm sóc phải tuân theo quy trình chuẩn y tế.
                         </p>
                     </div>
                 </div>
@@ -26,13 +75,14 @@
         </nav>
     </div>
 
-    <!-- Service Details 2 Section -->
-    <section id="service-details-2" class="service-details-2 section">
+    <!-- Service Details Section -->
+    <section id="service-details" class="service-details section">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
             <div class="row gy-5">
 
+                <!-- Hình ảnh dịch vụ -->
                 <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
                     <div class="service-image">
                         <img src="@Model.Image" alt="@Model.Title" class="img-fluid">
@@ -42,27 +92,45 @@
                     </div>
                 </div>
 
+                <!-- Nội dung dịch vụ -->
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                     <div class="service-content">
                         <h2>@Model.Title</h2>
                         <p class="service-tagline">@Model.ShortDescription</p>
 
-                        <!-- GIÁ DỊCH VỤ (GIÁ GỐC) -->
+                        <!-- Giá dịch vụ -->
                         <div class="service-price">
-                            <strong>Price: </strong>
-                            @String.Format("{0:N0} đ", Model.Price)
+                            GIÁ: @String.Format("{0:N0} đ", Model.Price)
                         </div>
-                        <!-- END GIÁ -->
 
-                        <p>@Model.Detail</p>
+                        <p>@Html.Raw(Model.Detail)</p>
 
+                        <!-- Bác sĩ phụ trách -->
                         <div class="service-doctor">
-                            <strong>Doctor: </strong>
-                            @Model.Doctor?.FullName
+                            <span class="service-label">Bác sĩ:</span> @Model.Doctor?.FullName
                         </div>
 
-                        <div class="service-actions">
-                            <a href="appointment.html" class="btn-primary">Đặt lịch khám tư vấn</a>
+                        <!-- Khoa -->
+                        <div class="service-category">
+                            <span class="service-label">Khoa:</span> @Model.Category?.Title
+                        </div>
+
+                        <!-- Nút hành động -->
+                        <div class="service-actions mt-3">
+                            <!-- Thêm vào giỏ hàng -->
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                                <input type="hidden" name="serviceId" value="@Model.ServiceId" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <input type="hidden" name="doctorName" value="@Model.Doctor?.FullName" />
+                                <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                            </form>
+
+                            <!-- Đặt hàng ngay -->
+                            <form asp-controller="Cart" asp-action="Checkout" method="post" class="d-inline">
+                                <input type="hidden" name="serviceId" value="@Model.ServiceId" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-success">Đặt hàng ngay</button>
+                            </form>
                         </div>
                     </div>
                 </div>

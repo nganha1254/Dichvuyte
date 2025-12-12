@@ -1,0 +1,91 @@
+﻿@model Doan.Models.TbOrder
+
+@{
+    Layout = null; // Bỏ layout mặc định để không dính menu/header
+    ViewData["Title"] = "Xác nhận đơn hàng";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Xác nhận đơn hàng</h2>
+
+        @if (TempData["PaymentMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["PaymentMessage"]
+            </div>
+        }
+
+        <div class="mb-4">
+            <h4>Thông tin đơn hàng</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <td>@Model.OrderId</td>
+                </tr>
+                <tr>
+                    <th>Tổng tiền</th>
+                    <td>@Model.TotalAmount.ToString("N0") VNĐ</td>
+                </tr>
+                <tr>
+                    <th>Trạng thái thanh toán</th>
+                    <td>@(Model.PaymentStatus ? "Đã thanh toán" : "Chưa thanh toán")</td>
+                </tr>
+                <tr>
+                    <th>Trạng thái đơn hàng</th>
+                    <td>@Model.OrderStatus</td>
+                </tr>
+                <tr>
+                    <th>Ngày tạo</th>
+                    <td>@Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="mb-4">
+            <h4>Chi tiết dịch vụ</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Dịch vụ</th>
+                        <th>Bác sĩ</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TbOrderItems)
+                    {
+                        <tr>
+                            <td>@item.Service?.Title</td>
+                            <td>@item.DoctorName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.ToString("N0") VNĐ</td>
+                            <td>@((item.Quantity * item.Price).ToString("N0")) VNĐ</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" class="text-end">Tổng cộng:</th>
+                        <th>@Model.TotalAmount.ToString("N0") VNĐ</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div>
+            <a class="btn btn-primary" href="@Url.Action("ViewCart", "Cart")">Quay lại giỏ hàng</a>
+            <a class="btn btn-success" href="@Url.Action("Index", "Home")">Trang chủ</a>
+        </div>
+    </div>
+</body>
+</html>
