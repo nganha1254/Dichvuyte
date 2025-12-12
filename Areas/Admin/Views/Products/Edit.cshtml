@@ -1,122 +1,165 @@
 ﻿@model Doan.Models.TbProduct
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Product";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6">
-            <div class="card card-primary">
+        <div class="col-md-10 mx-auto">
+
+            <div class="card card-primary mt-3">
                 <div class="card-header">
                     <h3 class="card-title">Sửa dịch vụ</h3>
                 </div>
-                <!-- /.card-header -->
-                <!--form start-->
+
                 <form asp-action="Edit">
                     <div class="card-body">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="ProductId" />
-                    <div class="form-group">
-                        <label asp-for="Title" class="control-label">Tiêu đề</label>
-                        <input asp-for="Title" class="form-control" />
-                        <span asp-validation-for="Title" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Alias" class="control-label"></label>
-                        <input asp-for="Alias" class="form-control" />
-                        <span asp-validation-for="Alias" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ProductCategoryId" class="control-label">Danh mục</label>
-                        <select asp-for="ProductCategoryId" class="form-control" asp-items="ViewBag.ProductCategoryId"></select>
-                        <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label">Mô tả</label>
-                        <input asp-for="Description" class="form-control" />
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Detail" class="control-label">Chi tiết</label>
-                        <input asp-for="Detail" class="form-control" />
-                        <span asp-validation-for="Detail" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Image" class="control-label">Ảnh</label>
-                        <input asp-for="Image" class="form-control" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Price" class="control-label">Giá</label>
-                        <input asp-for="Price" class="form-control" />
-                        <span asp-validation-for="Price" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PriceSale" class="control-label">Giá giảm</label>
-                        <input asp-for="PriceSale" class="form-control" />
-                        <span asp-validation-for="PriceSale" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Duration" class="control-label">Thời gian</label>
-                        <input asp-for="Duration" class="form-control" />
-                        <span asp-validation-for="Duration" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DoctorId" class="control-label">Bác sỹ</label>
-                        <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.DoctorId"></select>
-                        <span asp-validation-for="DoctorId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CreatedDate" class="control-label">Ngày tạo</label>
-                        <input asp-for="CreatedDate" class="form-control" />
-                        <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CreatedBy" class="control-label">Người tạo</label>
-                        <input asp-for="CreatedBy" class="form-control" />
-                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ModifiedDate" class="control-label">Ngày sửa đổi</label>
-                        <input asp-for="ModifiedDate" class="form-control" />
-                        <span asp-validation-for="ModifiedDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ModifiedBy" class="control-label">Người sửa</label>
-                        <input asp-for="ModifiedBy" class="form-control" />
-                        <span asp-validation-for="ModifiedBy" class="text-danger"></span>
-                    </div>
-                        <div class="form-group form-check ">
-                            <label class="form-check-label">
-                                <input asp-for="IsNew" class="form-check-input" />Mới
-                            </label>
+
+                        <input type="hidden" asp-for="ProductId" />
+
+                        <div class="row">
+                            <!-- CỘT TRÁI -->
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label asp-for="Title">Tiêu đề</label>
+                                    <input asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Alias">Alias</label>
+                                    <input asp-for="Alias" class="form-control" />
+                                    <span asp-validation-for="Alias" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="ProductCategoryId">Danh mục</label>
+                                    <select asp-for="ProductCategoryId" class="form-control" asp-items="ViewBag.ProductCategoryId"></select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Description">Mô tả</label>
+                                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Detail">Chi tiết</label>
+                                    <textarea asp-for="Detail" class="form-control" rows="3"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Duration">Thời gian</label>
+                                    <input asp-for="Duration" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Star">Sao</label>
+                                    <input asp-for="Star" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ModifiedDate">Ngày sửa đổi</label>
+                                    <input asp-for="ModifiedDate" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="ModifiedBy">Người sửa</label>
+                                    <input asp-for="ModifiedBy" class="form-control" />
+                                </div>
+                            </div>
+
+                            <!-- CỘT PHẢI -->
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label asp-for="Image">Ảnh dịch vụ</label>
+                                    <div class="input-group mb-2">
+                                        <input id="Image" name="Image" class="form-control" value="@Model.Image" readonly />
+                                        <button type="button" class="btn btn-info" onclick="openImageManager()">
+                                            Chọn ảnh
+                                        </button>
+                                    </div>
+
+                                    <img id="previewImg"
+                                         src="@Model.Image"
+                                         class="img-thumbnail"
+                                         style="width:150px;height:150px;object-fit:cover;border-radius:8px" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Price">Giá</label>
+                                    <input asp-for="Price" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="PriceSale">Giá giảm</label>
+                                    <input asp-for="PriceSale" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="DoctorId">Bác sĩ phụ trách</label>
+                                    <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.DoctorId"></select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="CreatedDate">Ngày tạo</label>
+                                    <input asp-for="CreatedDate" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="CreatedBy">Người tạo</label>
+                                    <input asp-for="CreatedBy" class="form-control" />
+                                </div>
+
+                                
+
+                                <div class="form-group form-check">
+                                    <input asp-for="IsActive" class="form-check-input" />
+                                    <label asp-for="IsActive" class="form-check-label">Hiển thị</label>
+                                </div>
+
+                                <div class="form-group form-check">
+                                    <input asp-for="IsNew" class="form-check-input" />
+                                    <label asp-for="IsNew" class="form-check-label">Mới</label>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="form-group form-check ">
-                            <label class="form-check-label">
-                                <input asp-for="IsActive" class="form-check-input" /> Hiện thị
-                            </label>
-                        </div>
-                    <div class="form-group">
-                        <label asp-for="Star" class="control-label">Sao</label>
-                        <input asp-for="Star" class="form-control" />
-                        <span asp-validation-for="Star" class="text-danger"></span>
+
                     </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Lưu thay đổi
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
                     </div>
-                    </div>
+
                 </form>
 
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
     </div>
 </div>
 
-
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function openImageManager() {
+            window.open('/Admin/Image/Index', 'popup', 'width=900,height=600');
+        }
+
+        // Nhận file từ popup Image Manager
+        function setSelectedImage(fileName) {
+            document.getElementById("Image").value = fileName;
+            document.getElementById("previewImg").src = "/uploads/" + fileName;
+        }
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -1,133 +1,99 @@
 ﻿@model Doan.Models.TbDoctor
 
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Areas/Admin/Views/Share/_Layout.cshtml";
+    ViewData["Title"] = "Chi tiết bác sĩ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="content-wrapper">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-10">
 
-<div>
-    <h4>TbDoctor</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Position)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Qualification)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Qualification)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExperienceYears)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExperienceYears)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsNew)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsNew)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.AccountId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.DoctorId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Thông tin bác sĩ</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <!-- Cột trái: Ảnh -->
+                        <div class="col-md-4 text-center">
+                            <img src="@Model.Image"
+                                 class="img-thumbnail mb-3"
+                                 style="width:200px;height:200px;object-fit:cover;border-radius:10px" />
+
+                            <h4 class="mt-2">@Model.FullName</h4>
+                            <p class="text-muted">@Model.Position</p>
+
+                            <span class="badge bg-success">@(Model.IsActive ? "Đang hoạt động" : "Không hoạt động")</span>
+                            <span class="badge bg-info">@(Model.IsNew ? "Mới" : "")</span>
+                        </div>
+
+
+                        <!-- Cột phải: Thông tin -->
+                        <div class="col-md-8">
+                            <dl class="row">
+
+                                <dt class="col-sm-4">Giới tính</dt>
+                                <dd class="col-sm-8">@Model.Gender</dd>
+
+                                <dt class="col-sm-4">Ngày sinh</dt>
+                                <dd class="col-sm-8">@Model.DateOfBirth?.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4">Điện thoại</dt>
+                                <dd class="col-sm-8">@Model.Phone</dd>
+
+                                <dt class="col-sm-4">Email</dt>
+                                <dd class="col-sm-8">@Model.Email</dd>
+
+                                <dt class="col-sm-4">Địa chỉ</dt>
+                                <dd class="col-sm-8">@Model.Address</dd>
+
+                                <dt class="col-sm-4">Khoa</dt>
+                                <dd class="col-sm-8">@Model.Category?.Title</dd>
+
+                                <dt class="col-sm-4">Trình độ</dt>
+                                <dd class="col-sm-8">@Model.Qualification</dd>
+
+                                <dt class="col-sm-4">Kinh nghiệm</dt>
+                                <dd class="col-sm-8">@Model.ExperienceYears năm</dd>
+
+                                <dt class="col-sm-4">Mô tả</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+
+                                <dt class="col-sm-4">Tài khoản</dt>
+                                <dd class="col-sm-8">@Model.Account?.Username</dd>
+
+                                <dt class="col-sm-4">Ngày tạo</dt>
+                                <dd class="col-sm-8">@Model.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-4">Người tạo</dt>
+                                <dd class="col-sm-8">@Model.CreatedBy</dd>
+
+                                <dt class="col-sm-4">Ngày sửa</dt>
+                                <dd class="col-sm-8">@Model.ModifiedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-4">Người sửa</dt>
+                                <dd class="col-sm-8">@Model.ModifiedBy</dd>
+
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-center">
+                    <a asp-action="Edit" asp-route-id="@Model.DoctorId" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Sửa
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>

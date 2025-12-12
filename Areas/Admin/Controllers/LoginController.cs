@@ -1,9 +1,6 @@
 ﻿using Doan.Models;
 using Doan.Utilities;
-using Doan.Models;
-using Doan.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Doan.Controllers
 {

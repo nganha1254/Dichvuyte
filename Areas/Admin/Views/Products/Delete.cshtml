@@ -1,137 +1,129 @@
 ﻿@model Doan.Models.TbProduct
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa dịch vụ";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card card-primary">
+<div class="content-wrapper mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card card-danger">
                 <div class="card-header">
-                    <h3 class="card-title">Xóa dịch vụ </h3>
+                    <h3 class="card-title">
+                        <i class="fas fa-exclamation-triangle"></i> Xác nhận xóa dịch vụ
+                    </h3>
                 </div>
-                <!-- /.card-header -->
-                <!--form start-->
+
                 <div class="card-body">
-                <div class="form-group">
-                    <label>Tiêu đề</label>
-                    @Html.DisplayFor(model => model.Title)
+
+                    <!-- Cảnh báo -->
+                    <div class="alert alert-danger text-center">
+                        Bạn có chắc chắn muốn xóa dịch vụ này?
+                        <br />
+                        <strong>Hành động này không thể hoàn tác!</strong>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Ảnh -->
+                        <div class="col-md-4 text-center">
+                            <img src="@Model.Image"
+                                 class="img-thumbnail mb-3"
+                                 style="width:180px;height:180px;object-fit:cover;border-radius:10px;" />
+
+                            <h4>@Model.Title</h4>
+                            <p class="text-muted">@Model.ProductCategory?.Title</p>
+
+                            <div>
+                                @if (Model.IsActive)
+                                {
+                                    <span class="badge bg-success">Hiển thị</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Ẩn</span>
+                                }
+
+                                @if (Model.IsNew)
+                                {
+                                    <span class="badge bg-info">Mới</span>
+                                }
+
+                                @if (Model.IsPopular)
+                                {
+                                    <span class="badge bg-warning text-dark">Nổi bật</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Thông tin -->
+                        <div class="col-md-8">
+                            <dl class="row">
+
+                                <dt class="col-sm-4">Alias</dt>
+                                <dd class="col-sm-8">@Model.Alias</dd>
+
+                                <dt class="col-sm-4">Mô tả</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+
+                                <dt class="col-sm-4">Chi tiết</dt>
+                                <dd class="col-sm-8">@Model.Detail</dd>
+
+                                <dt class="col-sm-4">Giá</dt>
+                                <dd class="col-sm-8">@Model.Price?.ToString("#,##0") VNĐ</dd>
+
+                                <dt class="col-sm-4">Giá Sale</dt>
+                                <dd class="col-sm-8">@Model.PriceSale?.ToString("#,##0") VNĐ</dd>
+
+                                <dt class="col-sm-4">Thời lượng</dt>
+                                <dd class="col-sm-8">@Model.Duration</dd>
+
+                                <dt class="col-sm-4">Số Slot</dt>
+                                <dd class="col-sm-8">@Model.SlotsAvailable</dd>
+
+                                <dt class="col-sm-4">Số sao đánh giá</dt>
+                                <dd class="col-sm-8">@Model.Star ★</dd>
+
+                                <dt class="col-sm-4">Bác sĩ phụ trách</dt>
+                                <dd class="col-sm-8">@Model.Doctor?.FullName</dd>
+
+                                <dt class="col-sm-4">Ngày tạo</dt>
+                                <dd class="col-sm-8">@Model.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-4">Người tạo</dt>
+                                <dd class="col-sm-8">@Model.CreatedBy</dd>
+
+                                <dt class="col-sm-4">Ngày sửa</dt>
+                                <dd class="col-sm-8">@Model.ModifiedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-4">Người sửa</dt>
+                                <dd class="col-sm-8">@Model.ModifiedBy</dd>
+
+                            </dl>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="form-group">
-                    <label>Alias</label>
-                    @Html.DisplayFor(model => model.Alias)
+                <div class="card-footer text-center">
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="ProductId" />
+
+                        <button type="submit" class="btn btn-danger px-4">
+                            <i class="fas fa-trash-alt"></i> Xóa ngay
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-secondary px-4">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                    </form>
                 </div>
 
-                <div class="form-group">
-                    <label>Mô tả</label>
-                    @Html.DisplayFor(model => model.Description)
-                </div>
-
-                <div class="form-group">
-                    <label>Chi tiết</label>
-                    @Html.DisplayFor(model => model.Detail)
-                </div>
-
-                <div class="form-group">
-                    <label>Giá</label>
-                    @Html.DisplayFor(model => model.Price)
-                </div>
-
-                <div class="form-group">
-                    <label>Giá sale</label>
-                    @Html.DisplayFor(model => model.PriceSale)
-                </div>
-
-                <div class="form-group">
-                    <label>Thời lượng</label>
-                    @Html.DisplayFor(model => model.Duration)
-                </div>
-
-                <div class="form-group">
-                    <label>Số slot</label>
-                    @Html.DisplayFor(model => model.SlotsAvailable)
-                </div>
-
-                <div class="form-group">
-                    <label>Ngày tạo</label>
-                    @Html.DisplayFor(model => model.CreatedDate)
-                </div>
-
-                <div class="form-group">
-                    <label>Tạo bởi</label>
-                    @Html.DisplayFor(model => model.CreatedBy)
-                </div>
-
-                <div class="form-group">
-                    <label>Sửa lần cuối</label>
-                    @Html.DisplayFor(model => model.ModifiedDate)
-                </div>
-
-                <div class="form-group">
-                    <label>Sửa bởi</label>
-                    @Html.DisplayFor(model => model.ModifiedBy)
-                </div>
-
-                <div class="form-group">
-                    <label>Mới</label>
-                    @Html.DisplayFor(model => model.IsNew)
-                </div>
-
-                <div class="form-group">
-                    <label>Nổi bật</label>
-                    @Html.DisplayFor(model => model.IsPopular)
-                </div>
-
-                <div class="form-group">
-                    <label>Hiển thị</label>
-                    @Html.DisplayFor(model => model.IsActive)
-                </div>
-
-                <div class="form-group">
-                    <label>Đánh giá (Star)</label>
-                    @Html.DisplayFor(model => model.Star)
-                </div>
-
-                <div class="form-group">
-                    <label>Bác sĩ</label>
-                    <p class="form-control-plaintext">
-                        @* an toàn nếu Doctor null *@
-                        @(Model.Doctor != null ? (Model.Doctor.GetType().GetProperty("FullName") != null ? Model.Doctor?.FullName : Model.Doctor?.DoctorId.ToString()) : "—")
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>Danh mục</label>
-                    <p class="form-control-plaintext">
-                        @(Model.ProductCategory != null ? (Model.ProductCategory.GetType().GetProperty("Title") != null ? Model.ProductCategory?.Title : Model.ProductCategory?.ProductCategoryId.ToString()) : "—")
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>Hình ảnh</label><br />
-
-                    @if (!string.IsNullOrEmpty(Model.Image))
-                    {
-                        <img src="@Url.Content(Model.Image)" style="max-width:120px; max-height:120px;" class="img-thumbnail" />
-                    }
-                    else
-                    {
-                        <span>Không có ảnh</span>
-                    }
-                </div>
-
-                <form asp-action="Delete" method="post">
-                    <input type="hidden" asp-for="ProductId" />
-                    <button type="submit" class="btn btn-danger">Xóa</button>
-                    <a asp-action="Index" class="btn btn-info ml-2">Quay lại</a>
-                </form>
-                </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+
         </div>
     </div>
 </div>

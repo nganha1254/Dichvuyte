@@ -49,12 +49,11 @@
                                 <label asp-for="Image" class="control-label">Ảnh</label>
                                 <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                <button type="button" class="btn btn-success" onclick="openFileManager()">
-                                    Chọn ảnh
-                                </button>
-                            </div>
-                                <input type="text" class="form-control" id="file_input" asp-for="Image" aria-describedby="button-addon2" />
-                            </div>
+                                    <div class="input-group">
+                                        <input id="Image" name="Image" class="form-control" readonly />
+                                        <button type="button" class="btn btn-info" onclick="openImageManager()">Chọn ảnh</button>
+                                    </div>
+                                    </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
@@ -101,4 +100,16 @@
 <!-- content-wrapper ends -->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Mở popup chọn ảnh
+        function openImageManager() {
+            var url = "/Admin/Image/Index";
+            window.open(url, "Chọn ảnh", "width=900,height=600");
+        }
+
+        // Nhận ảnh được chọn từ popup
+        function setSelectedImage(imageUrl) {
+            document.getElementById("Image").value = imageUrl;
+        }
+    </script>
 }

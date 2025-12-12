@@ -49,8 +49,8 @@ namespace Doan.Areas.Admin.Controllers
         // GET: Admin/Doctors/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "AccountId");
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId");
+            ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "Username");
+            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "Title");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace Doan.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "AccountId", tbDoctor.AccountId);
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId", tbDoctor.CategoryId);
+            ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "Username", tbDoctor.AccountId);
+            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "Title", tbDoctor.CategoryId);
             return View(tbDoctor);
         }
 
@@ -85,7 +85,7 @@ namespace Doan.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "AccountId", tbDoctor.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.TbAccounts, "AccountId", "Username", tbDoctor.AccountId);
             ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "Title", tbDoctor.CategoryId);
             return View(tbDoctor);
         }
