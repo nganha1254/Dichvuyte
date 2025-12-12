@@ -1,83 +1,86 @@
 ﻿@model Doan.Models.TbMenu
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm menu";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-6 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Thêm menu</h4>
-                    <p class="card-description">
-                        Thêm mới menu
-                    </p>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Thêm menu</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!--form start-->
-                                <form asp-action="Create">
-                                    <div class="card-body">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <div class="form-group">
-                                            <label asp-for="Title" class="control-label">Tiêu đề</label>
-                                            <input asp-for="Title" class="form-control" />
-                                            <span asp-validation-for="Title" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Alias" class="control-label"></label>
-                                            <input asp-for="Alias" class="form-control" />
-                                            <span asp-validation-for="Alias" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Description" class="control-label">Mô tả</label>
-                                            <input asp-for="Description" class="form-control" />
-                                            <span asp-validation-for="Description" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Levels" class="control-label">Mức</label>
-                                            <input asp-for="Levels" class="form-control" />
-                                            <span asp-validation-for="Levels" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="ParentId" class="control-label">Menu cha</label>
-                                            <input asp-for="ParentId" class="form-control" />
-                                            <span asp-validation-for="ParentId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Position" class="control-label">Vị trí</label>
-                                            <input asp-for="Position" class="form-control" />
-                                            <span asp-validation-for="Position" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group form-check ">
-                                            <label class="form-check-label">
-                                                <input asp-for="IsActive" class="form-check-input" /> Hiện thị
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="submit" value="Thêm mới" class="btn btn-primary" />
-                                        </div>
-                                    </div>
-                                </form>
+<div class="content-wrapper mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-bars"></i> Thêm Menu
+                    </h3>
+                </div>
+
+                <form asp-action="Create">
+                    <div class="card-body">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Title">Tiêu đề</label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label asp-for="Alias">Alias</label>
+                            <input asp-for="Alias" class="form-control" />
+                            <span asp-validation-for="Alias" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description">Mô tả</label>
+                            <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Levels">Mức</label>
+                            <input asp-for="Levels" class="form-control" />
+                            <span asp-validation-for="Levels" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ParentId">Menu cha</label>
+                            <input asp-for="ParentId" class="form-control" placeholder="Nhập ID menu cha hoặc để trống" />
+                            <span asp-validation-for="ParentId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Position">Vị trí</label>
+                            <input asp-for="Position" class="form-control" placeholder="VD: top, footer, sidebar..." />
+                            <span asp-validation-for="Position" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-check ">
+                            <label class="form-check-label">
+                                <input asp-for="IsActive" class="form-check-input" /> Hiện thị
+                            </label>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="fas fa-plus-circle"></i> Thêm mới
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary px-4 ml-2">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                    </div>
+
+                </form>
+
             </div>
         </div>
     </div>
 </div>
-<!-- content-wrapper ends -->
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
