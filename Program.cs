@@ -38,10 +38,27 @@ else
 }
 builder.Services.AddScoped<RagPipeline>();
 
-builder.Services.AddControllersWithViews();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+// ngân hàng 
+builder.Services.AddSingleton<Doan.Payments.VNPayService>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+
+    var tmnCode = config["VNPay:TmnCode"];
+    var hashSecret = config["VNPay:HashSecret"];
+    var paymentUrl = config["VNPay:PaymentUrl"];
+    var returnUrl = config["VNPay:ReturnUrl"];
+
+    return new Doan.Payments.VNPayService(
+        tmnCode,
+        hashSecret,
+        paymentUrl,
+        returnUrl
+    );
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

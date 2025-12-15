@@ -1,4 +1,4 @@
-﻿@model Doan.Models.TbProduct
+﻿@model Doan.Models.TbService
 
 @{
     ViewData["Title"] = "Xóa dịch vụ";
@@ -7,12 +7,13 @@
 
 <div class="content-wrapper mt-3">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
 
             <div class="card card-danger">
                 <div class="card-header">
                     <h3 class="card-title">
-                        <i class="fas fa-exclamation-triangle"></i> Xác nhận xóa dịch vụ
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Xác nhận xóa dịch vụ
                     </h3>
                 </div>
 
@@ -27,14 +28,26 @@
 
                     <div class="row">
 
-                        <!-- Ảnh -->
+                        <!-- Ảnh + thông tin nhanh -->
                         <div class="col-md-4 text-center">
-                            <img src="@Model.Image"
-                                 class="img-thumbnail mb-3"
-                                 style="width:180px;height:180px;object-fit:cover;border-radius:10px;" />
+                            @if (!string.IsNullOrEmpty(Model.Image))
+                            {
+                                <img src="@Model.Image"
+                                     class="img-thumbnail mb-3"
+                                     style="width:180px;height:180px;object-fit:cover;border-radius:10px;" />
+                            }
+                            else
+                            {
+                                <div class="border rounded p-4 text-muted mb-3">
+                                    Không có ảnh
+                                </div>
+                            }
 
                             <h4>@Model.Title</h4>
-                            <p class="text-muted">@Model.ProductCategory?.Title</p>
+
+                            <p class="text-muted">
+                                @(Model.Category != null ? Model.Category.Title : "Không có danh mục")
+                            </p>
 
                             <div>
                                 @if (Model.IsActive)
@@ -51,52 +64,60 @@
                                     <span class="badge bg-info">Mới</span>
                                 }
 
-                                @if (Model.IsPopular)
+                                @if (Model.IsFeatured)
                                 {
                                     <span class="badge bg-warning text-dark">Nổi bật</span>
                                 }
                             </div>
                         </div>
 
-                        <!-- Thông tin -->
+                        <!-- Thông tin chi tiết -->
                         <div class="col-md-8">
                             <dl class="row">
 
                                 <dt class="col-sm-4">Alias</dt>
                                 <dd class="col-sm-8">@Model.Alias</dd>
 
-                                <dt class="col-sm-4">Mô tả</dt>
-                                <dd class="col-sm-8">@Model.Description</dd>
+                                <dt class="col-sm-4">Mô tả ngắn</dt>
+                                <dd class="col-sm-8">@Model.ShortDescription</dd>
 
                                 <dt class="col-sm-4">Chi tiết</dt>
                                 <dd class="col-sm-8">@Model.Detail</dd>
 
                                 <dt class="col-sm-4">Giá</dt>
-                                <dd class="col-sm-8">@Model.Price?.ToString("#,##0") VNĐ</dd>
+                                <dd class="col-sm-8">
+                                    @(Model.Price.HasValue
+                                        ? Model.Price.Value.ToString("#,##0") + " VNĐ"
+                                        : "-")
+                                </dd>
 
-                                <dt class="col-sm-4">Giá Sale</dt>
-                                <dd class="col-sm-8">@Model.PriceSale?.ToString("#,##0") VNĐ</dd>
-
-                                <dt class="col-sm-4">Thời lượng</dt>
-                                <dd class="col-sm-8">@Model.Duration</dd>
-
-                                <dt class="col-sm-4">Số Slot</dt>
-                                <dd class="col-sm-8">@Model.SlotsAvailable</dd>
-
-                                <dt class="col-sm-4">Số sao đánh giá</dt>
-                                <dd class="col-sm-8">@Model.Star ★</dd>
+                                <dt class="col-sm-4">Giá khuyến mãi</dt>
+                                <dd class="col-sm-8">
+                                    @(Model.PriceSale.HasValue
+                                        ? Model.PriceSale.Value.ToString("#,##0") + " VNĐ"
+                                        : "-")
+                                </dd>
 
                                 <dt class="col-sm-4">Bác sĩ phụ trách</dt>
-                                <dd class="col-sm-8">@Model.Doctor?.FullName</dd>
+                                <dd class="col-sm-8">
+                                    @(Model.Doctor != null ? Model.Doctor.FullName : "-")
+                                </dd>
+
+                                <dt class="col-sm-4">Thứ tự hiển thị</dt>
+                                <dd class="col-sm-8">@Model.Position</dd>
 
                                 <dt class="col-sm-4">Ngày tạo</dt>
-                                <dd class="col-sm-8">@Model.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+                                <dd class="col-sm-8">
+                                    @Model.CreatedDate?.ToString("dd/MM/yyyy HH:mm")
+                                </dd>
 
                                 <dt class="col-sm-4">Người tạo</dt>
                                 <dd class="col-sm-8">@Model.CreatedBy</dd>
 
                                 <dt class="col-sm-4">Ngày sửa</dt>
-                                <dd class="col-sm-8">@Model.ModifiedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+                                <dd class="col-sm-8">
+                                    @Model.ModifiedDate?.ToString("dd/MM/yyyy HH:mm")
+                                </dd>
 
                                 <dt class="col-sm-4">Người sửa</dt>
                                 <dd class="col-sm-8">@Model.ModifiedBy</dd>
@@ -105,12 +126,12 @@
                         </div>
 
                     </div>
-
                 </div>
 
+                <!-- Footer -->
                 <div class="card-footer text-center">
                     <form asp-action="Delete" method="post">
-                        <input type="hidden" asp-for="ProductId" />
+                        <input type="hidden" asp-for="ServiceId" />
 
                         <button type="submit" class="btn btn-danger px-4">
                             <i class="fas fa-trash-alt"></i> Xóa ngay

@@ -51,6 +51,15 @@
             <form asp-action="CheckoutConfirm" method="post">
                 <button type="submit" class="btn btn-success">Xác nhận thanh toán</button>
             </form>
+
+            <form asp-controller="Cart" asp-action="PayByBank" method="post">
+                <input type="hidden" name="paymentMethod" value="VNBANK" />
+                <button type="submit" class="btn btn-danger">
+                    Thanh toán qua ngân hàng (VNPay)
+                </button>
+            </form>
+
+
         }
         else
         {
