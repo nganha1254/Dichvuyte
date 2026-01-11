@@ -2,7 +2,7 @@
 
 @{
     Layout = null; // Bỏ layout mặc định để không dính menu/header
-    ViewData["Title"] = "Xác nhận đơn hàng";
+    ViewData["Title"] = "Xác nhận gói";
 }
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Xác nhận đơn hàng</h2>
+        <h2 class="mb-4">Xác nhận gói dịch vụ</h2>
 
         @if (TempData["PaymentMessage"] != null)
         {
@@ -24,10 +24,10 @@
         }
 
         <div class="mb-4">
-            <h4>Thông tin đơn hàng</h4>
+            <h4>Thông tin gói dịch vụ</h4>
             <table class="table table-bordered">
                 <tr>
-                    <th>Mã đơn hàng</th>
+                    <th>Mã dịch vụ</th>
                     <td>@Model.OrderId</td>
                 </tr>
                 <tr>
@@ -39,7 +39,7 @@
                     <td>@(Model.PaymentStatus ? "Đã thanh toán" : "Chưa thanh toán")</td>
                 </tr>
                 <tr>
-                    <th>Trạng thái đơn hàng</th>
+                    <th>Trạng thái gói dịch vụ</th>
                     <td>@Model.OrderStatus</td>
                 </tr>
                 <tr>

@@ -122,14 +122,14 @@
                                 <input type="hidden" name="serviceId" value="@Model.ServiceId" />
                                 <input type="hidden" name="quantity" value="1" />
                                 <input type="hidden" name="doctorName" value="@Model.Doctor?.FullName" />
-                                <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                <button type="submit" class="btn btn-primary">Chọn dịch vụ khám</button>
                             </form>
 
                             <!-- Đặt hàng ngay -->
                             <form asp-controller="Cart" asp-action="Checkout" method="post" class="d-inline">
                                 <input type="hidden" name="serviceId" value="@Model.ServiceId" />
                                 <input type="hidden" name="quantity" value="1" />
-                                <button type="submit" class="btn btn-success">Đặt hàng ngay</button>
+                                <button type="submit" class="btn btn-success">Đặt lịch ngay</button>
                             </form>
                         </div>
                     </div>

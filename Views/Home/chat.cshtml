@@ -4,18 +4,42 @@
 }
 
 <style>
-    /* Widget */
+    /* Widget container */
     #chatWidget {
         position: fixed;
         bottom: 20px;
         right: 20px;
         width: 340px;
+        font-family: Arial, sans-serif;
+        z-index: 99999;
+    }
+
+    /* Bubble icon (luôn hiện) */
+    #chatBubble {
+        width: 54px;
+        height: 54px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        display: grid;
+        place-items: center;
+        font-size: 22px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    /* Panel chat */
+    #chatPanel {
+        width: 340px;
         background: #fff;
         border-radius: 12px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-        font-family: Arial, sans-serif;
-        z-index: 99999;
         overflow: hidden;
+        margin-bottom: 12px; /* chừa chỗ bubble */
+        display: none; /* mặc định THU */
     }
 
     /* Header */
@@ -27,12 +51,35 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 8px;
+        user-select: none;
     }
+
+        #chatHeader .title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    #chatCloseBtn {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        background: rgba(255,255,255,0.18);
+        color: #fff;
+        font-size: 16px;
+        line-height: 32px;
+    }
+
+        #chatCloseBtn:hover {
+            background: rgba(255,255,255,0.28);
+        }
 
     /* Body */
     #chatBody {
-        display: none;
         height: 420px;
         display: flex;
         flex-direction: column;
@@ -60,6 +107,8 @@
             display: inline-block;
             max-width: 80%;
             font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
     .msg-ai {
@@ -75,6 +124,8 @@
             display: inline-block;
             max-width: 80%;
             font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
     /* Form */
@@ -107,33 +158,127 @@
 </style>
 
 <div id="chatWidget">
-    <div id="chatHeader">
-        💬 Chat cùng MediNest
-    </div>
-
-    <div id="chatBody">
-        <div id="chatBox">
-            <div class="msg-ai">
-                <span>Xin chào! Tôi có thể giúp gì cho bạn hôm nay?</span>
-            </div>
+    <!-- Panel -->
+    <div id="chatPanel">
+        <div id="chatHeader">
+            <div class="title">💬 Chat cùng MediNest</div>
+            <button type="button" id="chatCloseBtn" aria-label="Thu gọn">×</button>
         </div>
 
-        <!-- GIỮ NGUYÊN LOGIC -->
-        <form id="chatForm">
-            <input type="text" id="questionInput" placeholder="Hỏi về sản phẩm..." />
-            <button type="submit">Gửi</button>
-        </form>
+        <div id="chatBody">
+            <div id="chatBox">
+                <div class="msg-ai">
+                    <span>Xin chào! Tôi có thể giúp gì cho bạn hôm nay?</span>
+                </div>
+            </div>
+
+            <!-- GIỮ NGUYÊN LOGIC -->
+            <form id="chatForm">
+                <input type="text" id="questionInput" placeholder="Hỏi về sản phẩm..." />
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
     </div>
+
+    <!-- Bubble -->
+    <button type="button" id="chatBubble" aria-label="Mở / Thu chat">💬</button>
 </div>
 
 <script>
-    // Thu gọn / mở chat
-    document.getElementById("chatHeader").onclick = () => {
-        const body = document.getElementById("chatBody");
-        body.style.display = body.style.display === "flex" ? "none" : "flex";
-    };
+    // ===== Helpers =====
+    const chatPanel = document.getElementById("chatPanel");
+    const chatBubble = document.getElementById("chatBubble");
+    const chatHeader = document.getElementById("chatHeader");
+    const chatCloseBtn = document.getElementById("chatCloseBtn");
 
-    // GIỮ NGUYÊN LOGIC GỬI
+    const STORAGE_KEY = "medinest_chat_open";
+    const AUTO_COLLAPSE_MS = 45000;
+    let idleTimer = null;
+
+    function isOpen() {
+        return chatPanel.style.display === "block";
+    }
+
+    function openChat() {
+        chatPanel.style.display = "block";
+        localStorage.setItem(STORAGE_KEY, "1");
+        resetIdleTimer();
+
+        // focus input cho tiện
+        setTimeout(() => {
+            const input = document.getElementById("questionInput");
+            if (input) input.focus();
+        }, 0);
+    }
+
+    function closeChat() {
+        chatPanel.style.display = "none";
+        localStorage.setItem(STORAGE_KEY, "0");
+        clearIdleTimer();
+    }
+
+    function toggleChat() {
+        isOpen() ? closeChat() : openChat();
+    }
+
+    function clearIdleTimer() {
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = null;
+    }
+
+    function resetIdleTimer() {
+        clearIdleTimer();
+        idleTimer = setTimeout(() => {
+            if (isOpen()) closeChat();
+        }, AUTO_COLLAPSE_MS);
+    }
+
+    // ===== MỞ/THU: bấm bubble hoặc header =====
+    chatBubble.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleChat();
+    });
+
+    chatHeader.addEventListener("click", (e) => {
+        // nếu bấm nút X thì không toggle 2 lần
+        if (e.target === chatCloseBtn) return;
+        toggleChat();
+    });
+
+    chatCloseBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeChat();
+    });
+
+    // ===== Click ra ngoài -> thu =====
+    document.addEventListener("click", (e) => {
+        if (!isOpen()) return;
+        const widget = document.getElementById("chatWidget");
+        if (widget && !widget.contains(e.target)) closeChat();
+    });
+
+    // ===== Có tương tác khi chat mở -> reset idle =====
+    ["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(evt => {
+        document.addEventListener(evt, () => {
+            if (isOpen()) resetIdleTimer();
+        }, { passive: true });
+    });
+
+    // ===== Restore trạng thái sau F5 =====
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "1") openChat(); else closeChat();
+
+
+    // ===== GIỮ NGUYÊN LOGIC GỬI (chỉ thêm escape để khỏi dính XSS) =====
+    function escapeHtml(str) {
+        return String(str)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
     document.getElementById('chatForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = document.getElementById('questionInput');
@@ -143,10 +288,12 @@
         const chatBox = document.getElementById('chatBox');
 
         chatBox.innerHTML += `
-            <div class="msg-user"><span>${question}</span></div>
+            <div class="msg-user"><span>${escapeHtml(question)}</span></div>
         `;
         chatBox.scrollTop = chatBox.scrollHeight;
         input.value = "";
+
+        resetIdleTimer();
 
         const response = await fetch('/Home/Chat', {
             method: 'POST',
@@ -157,7 +304,7 @@
         const data = await response.json();
 
         chatBox.innerHTML += `
-            <div class="msg-ai"><span>${data.answer}</span></div>
+            <div class="msg-ai"><span>${escapeHtml(data.answer)}</span></div>
         `;
         chatBox.scrollTop = chatBox.scrollHeight;
     });
